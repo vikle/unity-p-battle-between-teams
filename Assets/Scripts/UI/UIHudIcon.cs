@@ -86,7 +86,7 @@ namespace Scorewarrior.Test.UI
         
         private void OnCharacterStateChanged(ICharacter obj)
         {
-            if (obj.State == CharacterState.Die)
+            if (obj.State == ECharacterState.Die)
             {
                 DeAttachCurrentCharacter();
             }

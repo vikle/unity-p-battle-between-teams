@@ -9,7 +9,7 @@ namespace Scorewarrior.Test.UI
     {
         [SerializeField]UIHudIcon _uiHudIcon;
         [SerializeField]Color _healthBarsColor = Color.green;
-        [SerializeField]public Team _team;
+        [SerializeField]public ETeam _team;
         [SerializeField]uint[] _sectors;
 
         readonly List<UIHudIcon> _preparedIcons = new(8);

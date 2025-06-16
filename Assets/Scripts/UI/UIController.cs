@@ -19,20 +19,20 @@ namespace Scorewarrior.Test.UI
             GameController.OnCharacterDie += OnCharacterDie;
         }
 
-        private void OnGameStateChanged(GameState newState)
+        private void OnGameStateChanged(EGameState newState)
         {
-            _continueBtn.SetActive(newState == GameState.Initiated);
-            _replayBtn.SetActive(newState == GameState.Finished);
-            _uiHud.gameObject.SetActive(newState == GameState.Started);
+            _continueBtn.SetActive(newState == EGameState.Initiated);
+            _replayBtn.SetActive(newState == EGameState.Finished);
+            _uiHud.gameObject.SetActive(newState == EGameState.Started);
             
             switch (newState)
             {
-                case GameState.Initiated: 
+                case EGameState.Initiated: 
                     break;
-                case GameState.Started:
+                case EGameState.Started:
                     InitHud();
                     break;
-                case GameState.Finished: 
+                case EGameState.Finished: 
                     break;
                 default: break;
             }
