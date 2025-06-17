@@ -2,10 +2,10 @@
 
 namespace Scorewarrior.Test.Descriptors
 {
-    [Serializable]
+    // [Serializable]
     public struct CharacterDescriptorModifier
     {
-        public EDescriptor Descriptor;
+        public ECharacterDescriptor Descriptor;
         public float Value;
     }
 }

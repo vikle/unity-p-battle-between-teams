@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 669896398291902582}
   - component: {fileID: 1634156538910854705}
   - component: {fileID: 440964416580913933}
+  - component: {fileID: 8408017210469866378}
   m_Layer: 8
   m_Name: Pirate
   m_TagString: Untagged
@@ -102,7 +103,6 @@ MonoBehaviour:
   _descriptor: {fileID: 7098091886320096997}
   modificationRange: {x: 1, y: 2}
   modifiersCount: 3
-  modifiers: []
 --- !u!114 &6969867628901760352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   _descriptor: {fileID: -786566956386662424}
   _hitBox: {fileID: 7728978713856253894}
   _weaponPrefab: {fileID: 8538710082307586594, guid: d5bea6a02d9b89d46b2bb53aace5c35c, type: 3}
+  _weaponSlot: {fileID: 7545842229934271468}
   _attachments:
   - prefab: {fileID: 8538710082307586594, guid: d5bea6a02d9b89d46b2bb53aace5c35c, type: 3}
     slot: {fileID: 7545842229934271468}
@@ -175,7 +176,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf2a40e69e6ec44b778f9bfc21fccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataComponent: 2
+  dataComponent: 1
+--- !u!114 &8408017210469866378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3534475785278328611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62cd1326c37493185846e0aeb914ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8610520974472379114
 GameObject:
   m_ObjectHideFlags: 0

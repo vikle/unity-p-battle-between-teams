@@ -11,9 +11,10 @@ namespace Scorewarrior.Test.Views
     public sealed class CharacterPrefab : CachedMonoBehaviour, ICharacterPrefab
     {
         [SerializeField]CharacterDescriptorProvider _descriptor;
-        [SerializeField]Transform _hitBox;
-        [SerializeField]GameObject _weaponPrefab;
-        [SerializeField]WeaponAttachment[] _attachments;
+        
+        public Transform _hitBox;
+        public GameObject _weaponPrefab;
+        public Transform _weaponSlot;
 
         Character _characterModel;
 
@@ -35,17 +36,11 @@ namespace Scorewarrior.Test.Views
 
         void OnValidate()
         {
-            checkPrefab(ref _weaponPrefab);
-            
-            for (int i = 0, i_max = _attachments.Length; i < i_max; i++)
-            {
-                ref var attachment = ref _attachments[i];
-                checkPrefab(ref attachment.prefab);
-            }
+            check_weapon_prefab(ref _weaponPrefab);
 
             return;
             
-            static void checkPrefab(ref GameObject prefab)
+            static void check_weapon_prefab(ref GameObject prefab)
             {
                 if (prefab == null) return;
                 if (prefab.GetComponent<IWeaponPrefab>() != null) return;
@@ -64,30 +59,20 @@ namespace Scorewarrior.Test.Views
         
         private void InitWeapon()
         {
-            var weaponInstance = Instantiate(_weaponPrefab);
-
-            var weapTr = weaponInstance.transform;
-            var attachmentSlot = default(Transform);
-            
-            for (int i = 0, i_max = _attachments.Length; i < i_max; i++)
-            {
-                ref readonly var attachment = ref _attachments[i];
-                if (attachment.prefab != _weaponPrefab) continue;
-                attachmentSlot = attachment.slot;
-                break;
-            }
-
-            if (attachmentSlot == null)
+            if (_weaponSlot == null)
             {
                 Debug.LogError($"Weapon attachment slot not found in '{name}'");
             }
 
-            weapTr.SetParent(attachmentSlot);
+            var weapon_instance = Instantiate(_weaponPrefab);
             
-            weapTr.localPosition = Vector3.zero;
-            weapTr.localRotation = Quaternion.identity;
+            var weap_tr = weapon_instance.transform;
+            weap_tr.SetParent(_weaponSlot);
+            
+            weap_tr.localPosition = Vector3.zero;
+            weap_tr.localRotation = Quaternion.identity;
 
-            Weapon = weaponInstance.GetComponent<IWeaponPrefab>();
+            Weapon = weapon_instance.GetComponent<IWeaponPrefab>();
             Weapon.Init();
         }
 

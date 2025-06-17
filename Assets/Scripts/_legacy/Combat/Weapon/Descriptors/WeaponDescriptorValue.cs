@@ -1,6 +1,6 @@
 ﻿namespace Scorewarrior.Test.Descriptors
 {
-    public enum WeaponDescriptorValue
+    public enum EWeaponDescriptor
     {
         Damage,
         Accuracy,

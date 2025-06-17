@@ -1,5 +1,4 @@
-﻿using System;
-using Scorewarrior.Test.Descriptors;
+﻿using Scorewarrior.Test.Descriptors;
 using Scorewarrior.Test.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,8 +10,9 @@ namespace Scorewarrior.Test.Views
     public sealed class WeaponPrefab : MonoBehaviour, IWeaponPrefab
     {
         [SerializeField]WeaponDescriptorProvider _descriptor;
-        [SerializeField, FormerlySerializedAs("BarrelTransform")]Transform _barrelTransform;
-		[SerializeField]GameObject _bulletPrefab;
+        
+        [FormerlySerializedAs("BarrelTransform")]public Transform _barrelTransform;
+        public GameObject _bulletPrefab;
 
         public IWeaponDescriptorProvider Descriptor => _descriptor;
         public IWeapon Model { get; private set; }

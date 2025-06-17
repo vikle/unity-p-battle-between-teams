@@ -1,6 +1,6 @@
 ﻿namespace Scorewarrior.Test.Descriptors
 {
-    public enum EDescriptor
+    public enum ECharacterDescriptor
     {
         Accuracy,
         Dexterity,

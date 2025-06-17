@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace Scorewarrior.Test.Descriptors
+﻿namespace Scorewarrior.Test.Descriptors
 {
-    [Serializable]
     public struct WeaponDescriptorModifier
     {
-        public WeaponDescriptorValue Descriptor;
+        public EWeaponDescriptor Descriptor;
         public float Value;
     }
 }

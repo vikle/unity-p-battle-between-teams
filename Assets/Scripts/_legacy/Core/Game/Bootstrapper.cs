@@ -75,26 +75,26 @@ namespace Scorewarrior.Test
         
         private void PrepareBattlefield()
 		{
-            var availablePrefabs = new List<GameObject>(_characters);
+            var available_prefabs = new List<GameObject>(_characters);
 
             for (int i = 0, i_max = _spawns.Length; i < i_max; i++)
             {
-                var spawnPoint = _spawns[i];
+                var spawn_point = _spawns[i];
                 
-                if (spawnPoint == null)
+                if (spawn_point == null)
                 {
                     Debug.LogWarning($"Spawn point N{i} in _spawns array is null");
                     continue;
                 }
 
-                if (availablePrefabs.Count > 0)
+                if (available_prefabs.Count > 0)
                 {
-                    int randomIndex = Random.Range(0, availablePrefabs.Count);
-                    var selectedPrefab = availablePrefabs[randomIndex];
+                    int random_index = Random.Range(0, available_prefabs.Count);
+                    var selected_prefab = available_prefabs[random_index];
                     
-                    availablePrefabs.RemoveAt(randomIndex);
+                    available_prefabs.RemoveAt(random_index);
                     
-                    if (selectedPrefab == null)
+                    if (selected_prefab == null)
                     {
                         Debug.LogWarning($"Character prefab N{i} in _characters array is null");
                         continue;
@@ -102,16 +102,16 @@ namespace Scorewarrior.Test
                     
                     _spawnCharactersQueue.Enqueue(new()
                     {
-                        Prefab = selectedPrefab,
-                        Position = spawnPoint.transform.position,
+                        Prefab = selected_prefab,
+                        Position = spawn_point.transform.position,
                         Battlefield = _battlefield,
-                        Team = spawnPoint.Team,
-                        Sector = spawnPoint.Sector
+                        Team = spawn_point.Team,
+                        Sector = spawn_point.Sector
                     });
                 }
                 else
                 {
-                    Debug.LogWarning($"Not found available character prefab for '{spawnPoint.name}'");
+                    Debug.LogWarning($"Not found available character prefab for '{spawn_point.name}'");
                 }
             }
 

@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 8761748245449842751}
   - component: {fileID: 840124031417805369}
   - component: {fileID: -1082793736904600668}
+  - component: {fileID: 621121450563388049}
   m_Layer: 8
   m_Name: Sniper
   m_TagString: Untagged
@@ -167,7 +168,6 @@ MonoBehaviour:
   _descriptor: {fileID: 1611563776673867293}
   modificationRange: {x: 1, y: 2}
   modifiersCount: 3
-  modifiers: []
 --- !u!114 &4257496716420809272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,9 +183,7 @@ MonoBehaviour:
   _descriptor: {fileID: 9013538706967912965}
   _hitBox: {fileID: 3754427280660199051}
   _weaponPrefab: {fileID: 2952856303988018656, guid: 62f195ba45dd7a34c8646717720a76ff, type: 3}
-  _attachments:
-  - prefab: {fileID: 2952856303988018656, guid: 62f195ba45dd7a34c8646717720a76ff, type: 3}
-    slot: {fileID: 6668493340349822096}
+  _weaponSlot: {fileID: 6668493340349822096}
 --- !u!114 &8761748245449842751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +238,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf2a40e69e6ec44b778f9bfc21fccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataComponent: 2
+  dataComponent: 1
+--- !u!114 &621121450563388049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630610149977817967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62cd1326c37493185846e0aeb914ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &869198241244872633
 GameObject:
   m_ObjectHideFlags: 0
