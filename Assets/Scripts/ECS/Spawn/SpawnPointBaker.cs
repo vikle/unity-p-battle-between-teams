@@ -9,9 +9,9 @@ namespace Scorewarrior.ECS
     {
         public override void OnAfterEntityCreated(Pipeline pipeline, Entity entity, EntityActor actor)
         {
-            var sp_ref = entity.AddComponent<SpawnPointRef>();
-            sp_ref.originalObject = GetComponent<SpawnPoint>();
-            sp_ref.transform = transform;
+            var obj_ref = entity.AddComponent<SpawnPointRef>();
+            obj_ref.originalObject = GetComponent<SpawnPoint>();
+            obj_ref.transform = transform;
         }
         
         public override void OnBeforeEntityDestroyed(Pipeline pipeline, Entity entity, EntityActor actor) { }
