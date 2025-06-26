@@ -1,6 +1,4 @@
-﻿using System;
-using Scorewarrior.Test.Controllers;
-using Scorewarrior.Test.Models;
+﻿using Scorewarrior.Test.Models;
 using UnityEngine;
 
 namespace Scorewarrior.Test.UI
@@ -10,13 +8,17 @@ namespace Scorewarrior.Test.UI
         [SerializeField]GameObject _continueBtn;
         [SerializeField]GameObject _replayBtn;
         [SerializeField]UIHud _uiHud;
+
+        ECS.GameController m_gameController;
         
         void Awake()
         {
-            GameController.OnGameStateChanged += OnGameStateChanged;
-            GameController.OnCharacterSpawned += OnCharacterSpawned;
-            GameController.OnCharacterDamageTaken += OnCharacterDamageTaken;
-            GameController.OnCharacterDie += OnCharacterDie;
+            m_gameController = DIContainer.Resolve<ECS.GameController>();
+            
+            Controllers.GameController.OnGameStateChanged += OnGameStateChanged;
+            Controllers.GameController.OnCharacterSpawned += OnCharacterSpawned;
+            Controllers.GameController.OnCharacterDamageTaken += OnCharacterDamageTaken;
+            Controllers.GameController.OnCharacterDie += OnCharacterDie;
         }
 
         private void OnGameStateChanged(EGameState newState)
@@ -55,12 +57,14 @@ namespace Scorewarrior.Test.UI
         
         public void OnContinueClick()
         {
-            GameController.StartGame();
+            Controllers.GameController.StartGame();
+            m_gameController.PrepareToStartGame();
         }
         
         public void OnReplayClick()
         {
-            GameController.RestartGame();
+            Controllers.GameController.RestartGame();
+            m_gameController.RestartGame();
         }
 
         private void InitHud()

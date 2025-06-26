@@ -108,11 +108,11 @@ namespace Scorewarrior.Test.Models
                         {
                             if (weaponModel.IsReady)
                             {
-                                float hitChance = Random.value;
+                                float hit_chance = Random.value;
                                     
-                                bool hit = (hitChance <= Prefab.Descriptor.Accuracy
-                                         && hitChance <= weaponModel.Prefab.Descriptor.Accuracy
-                                         && hitChance >= _currentTarget.Prefab.Descriptor.Dexterity);
+                                bool hit = (hit_chance <= Prefab.Descriptor.Accuracy
+                                         && hit_chance <= weaponModel.Prefab.Descriptor.Accuracy
+                                         && hit_chance >= _currentTarget.Prefab.Descriptor.Dexterity);
                                     
                                 weaponModel.Fire(_currentTarget, _currentTarget.Prefab.HitBoxPosition, hit);
                                     

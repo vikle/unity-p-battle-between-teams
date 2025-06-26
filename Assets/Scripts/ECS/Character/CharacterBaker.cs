@@ -15,6 +15,7 @@ namespace Scorewarrior.ECS
             var marker = entity.AddComponent<CharacterMarker>();
             marker.statsEntity = pipeline.CreateEntity();
             marker.modifiersEntity = pipeline.CreateEntity();
+            marker.metaEntity = pipeline.CreateEntity();
         }
 
         public override void OnBeforeEntityDestroyed(Pipeline pipeline, Entity entity, EntityActor actor)
@@ -22,6 +23,7 @@ namespace Scorewarrior.ECS
             var marker = entity.GetComponent<CharacterMarker>();
             marker.statsEntity.Destroy();
             marker.modifiersEntity.Destroy();
+            marker.metaEntity.Destroy();
         }
     };
 }

@@ -1,4 +1,4 @@
-﻿namespace Scorewarrior.Test
+﻿namespace Scorewarrior
 {
     public enum EGameState
     {

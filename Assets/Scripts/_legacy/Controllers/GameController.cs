@@ -93,30 +93,30 @@ namespace Scorewarrior.Test.Controllers
         // ReSharper disable Unity.PerformanceAnalysis
         public static ICharacter SpawnCharacter(GameObject prefab, Vector3 position, IBattlefield battlefield, ETeam team, uint sector)
         {
-            bool isFirstInstance = !GameObjectPool.ContainsPrefab(prefab);
+            bool is_first_instance = !GameObjectPool.ContainsPrefab(prefab);
             
-            var prefabObject = GameObjectPool.Instantiate(prefab, position);
-            var prefabClone = prefabObject.GetComponent<ICharacterPrefab>();
+            var prefab_object = GameObjectPool.Instantiate(prefab, position);
+            var prefab_clone = prefab_object.GetComponent<ICharacterPrefab>();
 
-            if (isFirstInstance)
+            if (is_first_instance)
             {
-                prefabClone.Init();
+                prefab_clone.Init();
             }
             
-            var chrModel = prefabClone.Model;
+            var chr_model = prefab_clone.Model;
             
-            chrModel.Init(battlefield, team, sector);
+            chr_model.Init(battlefield, team, sector);
 
-            battlefield.RegisterCharacter(chrModel);
+            battlefield.RegisterCharacter(chr_model);
             
-            if (isFirstInstance)
+            if (is_first_instance)
             {
-                chrModel.OnDamageTaken += DoCharacterDamageTaken;
-                chrModel.OnStateChanged += DoCharacterStateChanged;
+                chr_model.OnDamageTaken += DoCharacterDamageTaken;
+                chr_model.OnStateChanged += DoCharacterStateChanged;
             }
             
-            OnCharacterSpawned.Invoke(chrModel);
-            return chrModel;
+            OnCharacterSpawned.Invoke(chr_model);
+            return chr_model;
         }
 
         private static void DoCharacterStateChanged(ICharacter character)

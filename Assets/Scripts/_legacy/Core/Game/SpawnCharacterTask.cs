@@ -1,7 +1,7 @@
 ﻿using Scorewarrior.Test.Models;
 using UnityEngine;
 
-namespace Scorewarrior.Test
+namespace Scorewarrior
 {
     public struct SpawnCharacterTask
     {

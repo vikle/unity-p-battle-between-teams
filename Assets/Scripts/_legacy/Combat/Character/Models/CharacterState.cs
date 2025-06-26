@@ -1,6 +1,6 @@
-﻿namespace Scorewarrior.Test.Models
+﻿namespace Scorewarrior
 {
-    public enum ECharacterState
+    public enum ECharacterState : byte
     {
         Idle,
         Aiming,
@@ -8,5 +8,5 @@
         ShootFire,
         Reloading,
         Die
-    }
+    };
 }

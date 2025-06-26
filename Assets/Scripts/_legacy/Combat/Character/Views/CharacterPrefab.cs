@@ -2,9 +2,10 @@
 using Scorewarrior.Test.Descriptors;
 using Scorewarrior.Test.Models;
 using Scorewarrior.Test.Services;
+using Scorewarrior.Test.Views;
 using UnityEngine;
 
-namespace Scorewarrior.Test.Views
+namespace Scorewarrior
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterDescriptorProvider))]

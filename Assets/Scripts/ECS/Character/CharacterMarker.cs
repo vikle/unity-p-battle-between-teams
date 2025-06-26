@@ -6,5 +6,6 @@ namespace Scorewarrior.ECS
     {
         public Entity statsEntity;
         public Entity modifiersEntity;
+        public Entity metaEntity;
     };
 }
