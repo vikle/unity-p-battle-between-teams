@@ -38,7 +38,7 @@ namespace Scorewarrior.Test.UI
         public bool TryAttachCharacter(ICharacter character)
         {
             _nonAllocCharacter = character;
-            var foundedIcon = _preparedIcons.Find(icon => icon.IsCompatibleCharacter(_nonAllocCharacter));
+            var foundedIcon = _preparedIcons.Find(icon => icon.IsCompatibleWith(_nonAllocCharacter.Sector));
             if (foundedIcon == null) return false;
             foundedIcon.AttachCharacter(character);
             return true;

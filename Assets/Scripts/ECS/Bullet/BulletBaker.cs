@@ -9,13 +9,18 @@ namespace Scorewarrior.ECS
     [RequireComponent(typeof(BulletPrefab))]
     public sealed class BulletBaker : EntityActorBaker
     {
+        public BulletPrefab prefab;
+        
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            if (prefab == null) prefab = GetComponent<BulletPrefab>();
+        }
+#endif
         public override void OnAfterEntityCreated(Pipeline pipeline, Entity entity, EntityActor actor)
         {
             entity.AddComponent<BulletMarker>();
-            
-            var obj_ref = entity.AddComponent<BulletPrefabRef>();
-            obj_ref.originalObject = GetComponent<BulletPrefab>();
-            obj_ref.transform = transform;
+            entity.AddComponent<ObjectRef<BulletPrefab>>().Target = prefab;
         }
         
         public override void OnBeforeEntityDestroyed(Pipeline pipeline, Entity entity, EntityActor actor) { }

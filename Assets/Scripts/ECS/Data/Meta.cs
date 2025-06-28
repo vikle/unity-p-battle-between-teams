@@ -16,4 +16,9 @@ namespace Scorewarrior.ECS
     {
         public ECharacterState value;
     };
+    
+    public sealed class CharacterTarget : IComponent
+    {
+        public Entity value;
+    };
 }

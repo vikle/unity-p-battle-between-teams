@@ -15,10 +15,10 @@ namespace Scorewarrior.Test.UI
         {
             m_gameController = DIContainer.Resolve<ECS.GameController>();
             
-            Controllers.GameController.OnGameStateChanged += OnGameStateChanged;
-            Controllers.GameController.OnCharacterSpawned += OnCharacterSpawned;
-            Controllers.GameController.OnCharacterDamageTaken += OnCharacterDamageTaken;
-            Controllers.GameController.OnCharacterDie += OnCharacterDie;
+            // Controllers.GameController.OnGameStateChanged += OnGameStateChanged;
+            // Controllers.GameController.OnCharacterSpawned += OnCharacterSpawned;
+            // Controllers.GameController.OnCharacterDamageTaken += OnCharacterDamageTaken;
+            // Controllers.GameController.OnCharacterDie += OnCharacterDie;
         }
 
         private void OnGameStateChanged(EGameState newState)
@@ -57,13 +57,13 @@ namespace Scorewarrior.Test.UI
         
         public void OnContinueClick()
         {
-            Controllers.GameController.StartGame();
+            // Controllers.GameController.StartGame();
             m_gameController.PrepareToStartGame();
         }
         
         public void OnReplayClick()
         {
-            Controllers.GameController.RestartGame();
+            // Controllers.GameController.RestartGame();
             m_gameController.RestartGame();
         }
 

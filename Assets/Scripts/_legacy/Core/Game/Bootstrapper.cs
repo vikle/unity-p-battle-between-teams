@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scorewarrior.Test.Models;
@@ -80,34 +79,21 @@ namespace Scorewarrior.Test
             for (int i = 0, i_max = _spawns.Length; i < i_max; i++)
             {
                 var spawn_point = _spawns[i];
-                
-                if (spawn_point == null)
-                {
-                    Debug.LogWarning($"Spawn point N{i} in _spawns array is null");
-                    continue;
-                }
 
                 if (available_prefabs.Count > 0)
                 {
                     int random_index = Random.Range(0, available_prefabs.Count);
-                    var selected_prefab = available_prefabs[random_index];
-                    
-                    available_prefabs.RemoveAt(random_index);
-                    
-                    if (selected_prefab == null)
-                    {
-                        Debug.LogWarning($"Character prefab N{i} in _characters array is null");
-                        continue;
-                    }
                     
                     _spawnCharactersQueue.Enqueue(new()
                     {
-                        Prefab = selected_prefab,
+                        Prefab = available_prefabs[random_index],
                         Position = spawn_point.transform.position,
                         Battlefield = _battlefield,
                         Team = spawn_point.Team,
                         Sector = spawn_point.Sector
                     });
+                    
+                    available_prefabs.RemoveAt(random_index);
                 }
                 else
                 {

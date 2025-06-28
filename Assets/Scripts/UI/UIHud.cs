@@ -18,8 +18,8 @@ namespace Scorewarrior.Test.UI
             for (int i = 0, i_max = _uiHudPanels.Length; i < i_max; i++)
             {
                 var panel = _uiHudPanels[i];
-                if (panel.IsCompatibleCharacter(character) == false) continue;
-                if (panel.TryAttachCharacter(character) == false) continue;
+                if (!panel.IsCompatibleCharacter(character)) continue;
+                if (!panel.TryAttachCharacter(character)) continue;
                 break;
             }
         }

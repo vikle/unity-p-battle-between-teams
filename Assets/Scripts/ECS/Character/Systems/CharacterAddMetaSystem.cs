@@ -17,11 +17,17 @@ namespace Scorewarrior.ECS
         
         public void OnAfterEntityCreated(Pipeline pipeline, Entity entity)
         {
+            if (!entity.HasComponent<CharacterMarker>())
+            {
+                return;
+            }
+            
             var meta_entity = entity.GetComponent<CharacterMarker>().metaEntity;
             
             meta_entity.AddComponent<Team>();
             meta_entity.AddComponent<Sector>();
             meta_entity.AddComponent<CharacterState>();
+            meta_entity.AddComponent<CharacterTarget>();
         }
     };
 }

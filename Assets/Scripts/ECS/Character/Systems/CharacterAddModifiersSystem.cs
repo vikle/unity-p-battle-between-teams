@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.Scripting;
 using UniversalEntities;
 using Random = UnityEngine.Random;
@@ -23,11 +22,14 @@ namespace Scorewarrior.ECS
         
         public void OnAfterEntityCreated(Pipeline pipeline, Entity entity)
         {
-            var provider = entity.GetComponent<ObjectRef<GameObject>>()
-                                 .Target.GetComponent<CharacterDescriptorProvider>();
-
-            var modifiers_entity = entity.GetComponent<CharacterMarker>().modifiersEntity;
+            if (!entity.HasComponent<CharacterMarker>())
+            {
+                return;
+            }
             
+            var modifiers_entity = entity.GetComponent<CharacterMarker>().modifiersEntity;
+            var provider = entity.GetComponent<ObjectRef<CharacterDescriptorProvider>>().Target;
+
             modifiers_entity.AddComponent<Accuracy>().value = 1f;
             modifiers_entity.AddComponent<Dexterity>().value = 1f;
             modifiers_entity.AddComponent<Health>().value = 1f;

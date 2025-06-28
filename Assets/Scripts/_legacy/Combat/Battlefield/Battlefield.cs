@@ -37,7 +37,7 @@ namespace Scorewarrior.Test.Models
         public bool TryGetNearestAliveEnemy(ICharacter character, out ICharacter target)
         {
             target = null;
-            float nearestDistance = float.MaxValue;
+            float nearest_distance = float.MaxValue;
             
             for (int i = 0, i_max = _allCharacters.Count; i < i_max; i++)
             {
@@ -52,9 +52,9 @@ namespace Scorewarrior.Test.Models
                 float distance = direction.sqrMagnitude;
                 //Убираем Vector3.Distance, т.к. в данном случае вычисление квадратного корня не нужно
 
-                if (distance < nearestDistance)
+                if (distance < nearest_distance)
                 {
-                    nearestDistance = distance;
+                    nearest_distance = distance;
                     target = other;
                 }
             }

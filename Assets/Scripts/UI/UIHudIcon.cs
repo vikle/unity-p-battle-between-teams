@@ -33,9 +33,9 @@ namespace Scorewarrior.Test.UI
             _healthBar.color = color;
         }
         
-        public bool IsCompatibleCharacter(ICharacter character)
+        public bool IsCompatibleWith(uint sector)
         {
-            return (character.Sector == Sector);
+            return (sector == Sector);
         }
         
         public void AttachCharacter(ICharacter character)

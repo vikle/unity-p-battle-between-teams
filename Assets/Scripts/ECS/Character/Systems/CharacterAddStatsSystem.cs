@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.Scripting;
 using UniversalEntities;
 
@@ -20,10 +19,13 @@ namespace Scorewarrior.ECS
         
         public void OnAfterEntityCreated(Pipeline pipeline, Entity entity)
         {
-            var descriptor = entity.GetComponent<ObjectRef<GameObject>>()
-                                   .Target.GetComponent<CharacterDescriptor>();
-
+            if (!entity.HasComponent<CharacterMarker>())
+            {
+                return;
+            }
+            
             var stats_entity = entity.GetComponent<CharacterMarker>().statsEntity;
+            var descriptor = entity.GetComponent<ObjectRef<CharacterDescriptor>>().Target;
             
             stats_entity.AddComponent<Accuracy>().value = descriptor.Accuracy;
             stats_entity.AddComponent<Dexterity>().value = descriptor.Dexterity;
