@@ -34,15 +34,14 @@ namespace Scorewarrior.ECS
                 var actor = prefab_clone.GetComponent<EntityActor>();
                 actor.InitEntity();
 
-                var character_entity = actor.EntityRef;
-
-                var meta_entity = character_entity.GetComponent<CharacterMarker>().metaEntity;
-                meta_entity.AddComponent<Team>().value = spawn_task.team;
-                meta_entity.AddComponent<Sector>().value = spawn_task.sector;
-                meta_entity.AddComponent<CharacterState>().value = ECharacterState.Idle;
-                meta_entity.AddComponent<CharacterTarget>().value = null;
+                var entity = actor.EntityRef;
+                var marker = entity.GetComponent<CharacterMarker>();
                 
-                pipeline.Trigger<CharacterSpawned>().characterEntity = character_entity;
+                var meta_entity = marker.metaEntity;
+                meta_entity.GetComponent<Team>().value = spawn_task.team;
+                meta_entity.GetComponent<Sector>().value = spawn_task.sector;
+                
+                pipeline.Trigger<CharacterSpawned>().characterEntity = entity;
             }
         }
     };

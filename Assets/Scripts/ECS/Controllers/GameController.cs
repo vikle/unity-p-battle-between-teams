@@ -15,6 +15,10 @@ namespace Scorewarrior.ECS
             DIContainer.TryGet(out m_pipeline);
         }
 
+        public void Bootstrap()
+        {
+            SwitchGameState(EGameState.Initiated, true);
+        }
 
         public void PrepareToStartGame()
         {

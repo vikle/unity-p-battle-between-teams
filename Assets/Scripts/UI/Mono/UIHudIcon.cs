@@ -1,9 +1,11 @@
 ﻿using System;
+using Scorewarrior.ECS;
 using Scorewarrior.Test.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using UniversalEntities;
 
-namespace Scorewarrior.Test.UI
+namespace Scorewarrior.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public sealed class UIHudIcon : MonoBehaviour
@@ -42,7 +44,7 @@ namespace Scorewarrior.Test.UI
         {
             if (_attachedCharacter != null)
             {
-                DeAttachCurrentCharacter();
+                ClearCurrentCharacter();
             }
             
             _attachedCharacter = character;
@@ -57,7 +59,7 @@ namespace Scorewarrior.Test.UI
             UpdateBars();
         }
 
-        public void DeAttachCurrentCharacter()
+        public void ClearCurrentCharacter()
         {
             if (_attachedCharacter == null) return;
             
@@ -65,11 +67,8 @@ namespace Scorewarrior.Test.UI
             _attachedCharacter.OnStateChanged -= OnCharacterStateChanged;
             
             _attachedCharacter = null;
-            _canvasGroup.alpha = 0f;
-            _armorBar.fillAmount = 1f;
-            _healthBar.fillAmount = 1f;
 
-            name = "UIHud_Is_EMPTY";
+            ClearBars();
         }
         
         private void OnCharacterDamageTaken(ICharacter obj)
@@ -83,12 +82,30 @@ namespace Scorewarrior.Test.UI
             _armorBar.fillAmount = (_attachedCharacter.Armor / desc.MaxArmor);
             _healthBar.fillAmount = (_attachedCharacter.Health / desc.MaxHealth);
         }
+
+        public void UpdateBars(Entity characterEntity)
+        {
+            var marker = characterEntity.GetComponent<CharacterMarker>();
+            
+            
+
+
+        }
+        
+        public void ClearBars()
+        {
+            _canvasGroup.alpha = 0f;
+            _armorBar.fillAmount = 1f;
+            _healthBar.fillAmount = 1f;
+
+            name = "UIHud_Is_EMPTY";
+        }
         
         private void OnCharacterStateChanged(ICharacter obj)
         {
             if (obj.State == ECharacterState.Die)
             {
-                DeAttachCurrentCharacter();
+                ClearCurrentCharacter();
             }
         }
     }

@@ -72,7 +72,7 @@ namespace Scorewarrior.Test.Models
             if (!IsAlive) return;
 
             var weaponModel = Prefab.Weapon.Model;
-            bool targetIsValid = (_currentTarget != null && _currentTarget.IsAlive);
+            bool target_is_valid = (_currentTarget != null && _currentTarget.IsAlive);
             
             switch (State)
             {
@@ -87,7 +87,7 @@ namespace Scorewarrior.Test.Models
                     break;
                     
                 case ECharacterState.Aiming:
-                    if (targetIsValid)
+                    if (target_is_valid)
                     {
                         if (_nextAimTime <= Time.time)
                         {
@@ -102,7 +102,7 @@ namespace Scorewarrior.Test.Models
                     
                 case ECharacterState.TryShooting:
                 case ECharacterState.ShootFire:
-                    if (targetIsValid)
+                    if (target_is_valid)
                     {
                         if (weaponModel.HasAmmo)
                         {
@@ -138,7 +138,12 @@ namespace Scorewarrior.Test.Models
                 case ECharacterState.Reloading:
                     if (_nextAimTime <= Time.time)
                     {
-                        SwitchState(targetIsValid ? ECharacterState.TryShooting : ECharacterState.Idle);
+                        var next_state = target_is_valid 
+                            ? ECharacterState.TryShooting 
+                            : ECharacterState.Idle;
+                        
+                        SwitchState(next_state);
+                        
                         weaponModel.Reload();
                     }
                     break;

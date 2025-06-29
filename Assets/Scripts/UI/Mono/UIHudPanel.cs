@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Scorewarrior.Test.Models;
 using UnityEngine;
 
-namespace Scorewarrior.Test.UI
+namespace Scorewarrior.UI
 {
     public sealed class UIHudPanel : MonoBehaviour
     {
@@ -33,15 +33,16 @@ namespace Scorewarrior.Test.UI
             return (character.Team == _team);
         }
 
-        static ICharacter _nonAllocCharacter;
-
         public bool TryAttachCharacter(ICharacter character)
         {
-            _nonAllocCharacter = character;
-            var foundedIcon = _preparedIcons.Find(icon => icon.IsCompatibleWith(_nonAllocCharacter.Sector));
-            if (foundedIcon == null) return false;
-            foundedIcon.AttachCharacter(character);
-            return true;
+            foreach (var icon in _preparedIcons)
+            {
+                if (!icon.IsCompatibleWith(character.Sector)) continue;
+                icon.AttachCharacter(character);
+                return true;
+            }
+            
+            return false;
         }
     }
 }

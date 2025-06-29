@@ -23,6 +23,7 @@ namespace Scorewarrior.ECS
             m_charactersFilter = pipeline.Query.With<CharacterMarker>().Build();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void OnUpdate(Pipeline pipeline)
         {
             if (m_requestFilter.IsEmpty) return;
@@ -40,14 +41,14 @@ namespace Scorewarrior.ECS
                 
                 float nearest_distance = float.MaxValue;
 
-                var instigator_target = instigator_entity.GetComponent<CharacterTarget>();
+                var instigator_target = instigator_marker.metaEntity.GetComponent<CharacterTarget>();
                 instigator_target.value = null;
                 
                 foreach (var other_character_entity in m_charactersFilter)
                 {
                     if (instigator_entity == other_character_entity) continue;
 
-                    var other_character_marker = instigator_entity.GetComponent<CharacterMarker>();
+                    var other_character_marker = other_character_entity.GetComponent<CharacterMarker>();
                     var other_character_team = other_character_marker.metaEntity.GetComponent<Team>().value;
                     
                     if (instigator_team == other_character_team) continue;
@@ -67,6 +68,8 @@ namespace Scorewarrior.ECS
                 request.State = (instigator_target.value != null) 
                     ? EPromiseState.Fulfilled 
                     : EPromiseState.Rejected;
+                
+                Debug.Log($"FindNearestEnemyRequestHandleSystem.Response = {request.State}");
             }
         }
     };

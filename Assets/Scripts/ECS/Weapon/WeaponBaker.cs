@@ -29,6 +29,7 @@ namespace Scorewarrior.ECS
             var marker = entity.AddComponent<WeaponMarker>();
             marker.statsEntity = pipeline.CreateEntity();
             marker.modifiersEntity = pipeline.CreateEntity();
+            marker.metaEntity = pipeline.CreateEntity();
             
             entity.AddComponent<ObjectRef<WeaponPrefab>>().Target = prefab;
             entity.AddComponent<ObjectRef<WeaponDescriptor>>().Target = descriptor;
@@ -40,6 +41,7 @@ namespace Scorewarrior.ECS
             var marker = entity.GetComponent<WeaponMarker>();
             marker.statsEntity.Destroy();
             marker.modifiersEntity.Destroy();
+            marker.metaEntity.Destroy();
         }
     };
 }

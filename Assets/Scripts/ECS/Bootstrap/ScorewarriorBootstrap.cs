@@ -14,14 +14,23 @@ namespace Scorewarrior.ECS
                 .BindSystem<GameStateStartingSystem>()
                 .BindSystem<CharacterSpawnSystem>()
                 
+                .BindSystem<CharacterStateBehaviourSystem>()
+                
                 .BindSystem<FindNearestEnemyRequestHandleSystem>()
                 ;
             
             pipeline
                 .BindSystem<CharacterAddStatsSystem>()
                 .BindSystem<CharacterAddModifiersSystem>()
+                .BindSystem<CharacterAddMetaSystem>()
                 .BindSystem<WeaponAddStatsSystem>()
                 .BindSystem<WeaponAddModifiersSystem>()
+                .BindSystem<WeaponAddMetaSystem>()
+                ;
+
+            pipeline
+                .BindSystem<UIControllerUpdateSystem>()
+                .BindSystem<UIHudUpdateSystem>()
                 ;
             
             pipeline
@@ -32,12 +41,13 @@ namespace Scorewarrior.ECS
                 .BindEvent<GameStateChanged>()
                 .BindEvent<CharacterSpawnTask>()
                 .BindEvent<CharacterSpawned>()
+                .BindEvent<CharacterStateChanged>()
                 ;
         }
 
         void Start()
         {
-            DIContainer.Resolve<GameController>().PrepareToStartGame();
+            DIContainer.Resolve<GameController>().Bootstrap();
         }
     };
 }

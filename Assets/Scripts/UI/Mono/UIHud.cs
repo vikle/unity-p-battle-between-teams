@@ -1,8 +1,7 @@
-﻿using System;
+﻿using UnityEngine;
 using Scorewarrior.Test.Models;
-using UnityEngine;
 
-namespace Scorewarrior.Test.UI
+namespace Scorewarrior.UI
 {
     public sealed class UIHud : MonoBehaviour
     {
