@@ -69,7 +69,6 @@ namespace Scorewarrior
             
             var weap_tr = weapon_instance.transform;
             weap_tr.SetParent(_weaponSlot);
-            
             weap_tr.localPosition = Vector3.zero;
             weap_tr.localRotation = Quaternion.identity;
 

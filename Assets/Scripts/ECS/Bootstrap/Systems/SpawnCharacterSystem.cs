@@ -11,13 +11,13 @@ namespace Scorewarrior.ECS
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
 #endif
-    public sealed class CharacterSpawnSystem : IUpdateSystem
+    public sealed class SpawnCharacterSystem : IUpdateSystem
     {
         readonly Filter m_filter;
         
-        [Preserve]public CharacterSpawnSystem(Pipeline pipeline)
+        [Preserve]public SpawnCharacterSystem(Pipeline pipeline)
         {
-            m_filter = pipeline.Query.With<CharacterSpawnTask>().Build();
+            m_filter = pipeline.Query.With<SpawnCharacterCommand>().Build();
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
@@ -25,21 +25,24 @@ namespace Scorewarrior.ECS
         {
             if (m_filter.IsEmpty) return;
 
-            foreach (var spawn_task_entity in m_filter)
+            foreach (var cmd_entity in m_filter)
             {
-                var spawn_task = spawn_task_entity.GetComponent<CharacterSpawnTask>();
+                var cmd = cmd_entity.GetComponent<SpawnCharacterCommand>();
                 
-                var prefab_clone = GameObjectPool.Instantiate(spawn_task.prefab, spawn_task.position);
+                var prefab_clone = GameObjectPool.Instantiate(cmd.prefab, cmd.position);
             
                 var actor = prefab_clone.GetComponent<EntityActor>();
                 actor.InitEntity();
 
                 var entity = actor.EntityRef;
                 var marker = entity.GetComponent<CharacterMarker>();
+
+                var prefab = entity.GetComponent<ObjectRef<CharacterPrefab>>().Target;
                 
-                var meta_entity = marker.metaEntity;
-                meta_entity.GetComponent<Team>().value = spawn_task.team;
-                meta_entity.GetComponent<Sector>().value = spawn_task.sector;
+                var meta = marker.metaEntity;
+                meta.GetComponent<Team>().value = cmd.team;
+                meta.GetComponent<Sector>().value = cmd.sector;
+                meta.GetComponent<CharacterHitBox>().transform = prefab._hitBox;
                 
                 pipeline.Trigger<CharacterSpawned>().characterEntity = entity;
             }

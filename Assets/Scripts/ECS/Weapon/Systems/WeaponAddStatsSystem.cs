@@ -24,14 +24,17 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var stats_entity = entity.GetComponent<WeaponMarker>().statsEntity;
+            var marker = entity.GetComponent<WeaponMarker>();
+            var modifiers_entity = marker.modifiersEntity;
+            var stats_entity = marker.statsEntity;
+            
             var descriptor = entity.GetComponent<ObjectRef<WeaponDescriptor>>().Target;
 
-            stats_entity.AddComponent<Damage>().value = descriptor.Damage;
-            stats_entity.AddComponent<Accuracy>().value = descriptor.Accuracy;
-            stats_entity.AddComponent<FireRate>().value = descriptor.FireRate;
-            stats_entity.AddComponent<ClipSize>().value = descriptor.ClipSize;
-            stats_entity.AddComponent<ReloadTime>().value = descriptor.ReloadTime;
+            stats_entity.AddComponent<Damage>().value = (descriptor.Damage * modifiers_entity.GetComponent<Damage>().value);
+            stats_entity.AddComponent<Accuracy>().value = (descriptor.Accuracy * modifiers_entity.GetComponent<Accuracy>().value);
+            stats_entity.AddComponent<FireRate>().value = (descriptor.FireRate * modifiers_entity.GetComponent<FireRate>().value);
+            stats_entity.AddComponent<ClipSize>().value = (uint)(descriptor.ClipSize * (modifiers_entity.GetComponent<ClipSize>().value / 100f));
+            stats_entity.AddComponent<ReloadTime>().value = (descriptor.ReloadTime * modifiers_entity.GetComponent<ReloadTime>().value);
         }
     };
 }

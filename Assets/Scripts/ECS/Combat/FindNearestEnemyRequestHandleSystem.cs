@@ -42,7 +42,7 @@ namespace Scorewarrior.ECS
                 float nearest_distance = float.MaxValue;
 
                 var instigator_target = instigator_marker.metaEntity.GetComponent<CharacterTarget>();
-                instigator_target.value = null;
+                instigator_target.entity = null;
                 
                 foreach (var other_character_entity in m_charactersFilter)
                 {
@@ -61,11 +61,11 @@ namespace Scorewarrior.ECS
                     if (distance < nearest_distance)
                     {
                         nearest_distance = distance;
-                        instigator_target.value = other_character_entity;
+                        instigator_target.entity = other_character_entity;
                     }
                 }
 
-                request.State = (instigator_target.value != null) 
+                request.State = (instigator_target.entity != null) 
                     ? EPromiseState.Fulfilled 
                     : EPromiseState.Rejected;
                 

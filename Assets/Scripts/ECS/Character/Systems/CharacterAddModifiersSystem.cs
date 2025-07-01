@@ -27,30 +27,29 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var modifiers_entity = entity.GetComponent<CharacterMarker>().modifiersEntity;
+            var modifiers = entity.GetComponent<CharacterMarker>().modifiersEntity;
             var provider = entity.GetComponent<ObjectRef<CharacterDescriptorProvider>>().Target;
 
-            modifiers_entity.AddComponent<Accuracy>().value = 1f;
-            modifiers_entity.AddComponent<Dexterity>().value = 1f;
-            modifiers_entity.AddComponent<Health>().value = 1f;
-            modifiers_entity.AddComponent<Armor>().value = 1f;
-            modifiers_entity.AddComponent<AimTime>().value = 1f;
+            modifiers.AddComponent<Accuracy>().value = 1f;
+            modifiers.AddComponent<Dexterity>().value = 1f;
+            modifiers.AddComponent<Health>().value = 1f;
+            modifiers.AddComponent<Armor>().value = 1f;
+            modifiers.AddComponent<AimTime>().value = 1f;
 
             var available_modifiers = Enum.GetValues(typeof(ECharacterDescriptor)).Cast<ECharacterDescriptor>().ToList();
             
             for (int i = 0, i_max = provider.modifiersCount; i < i_max; i++)
             {
                 int modifier_index = Random.Range(0, available_modifiers.Count);
-                var modifier = available_modifiers[modifier_index];
                 float value = Random.Range(provider.modificationRange.x, provider.modificationRange.y);
                 
-                switch (modifier)
+                switch (available_modifiers[modifier_index])
                 {
-                    case ECharacterDescriptor.Accuracy: modifiers_entity.GetComponent<Accuracy>().value = value; break;
-                    case ECharacterDescriptor.Dexterity: modifiers_entity.GetComponent<Dexterity>().value = value; break;
-                    case ECharacterDescriptor.MaxHealth: modifiers_entity.GetComponent<Health>().value = value; break;
-                    case ECharacterDescriptor.MaxArmor: modifiers_entity.GetComponent<Armor>().value = value; break;
-                    case ECharacterDescriptor.AimTime: modifiers_entity.GetComponent<AimTime>().value = value; break;
+                    case ECharacterDescriptor.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
+                    case ECharacterDescriptor.Dexterity: modifiers.GetComponent<Dexterity>().value = value; break;
+                    case ECharacterDescriptor.MaxHealth: modifiers.GetComponent<Health>().value = value; break;
+                    case ECharacterDescriptor.MaxArmor: modifiers.GetComponent<Armor>().value = value; break;
+                    case ECharacterDescriptor.AimTime: modifiers.GetComponent<AimTime>().value = value; break;
                     default: break;
                 }
                 

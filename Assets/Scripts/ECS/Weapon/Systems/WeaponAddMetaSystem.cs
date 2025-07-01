@@ -22,9 +22,12 @@ namespace Scorewarrior.ECS
                 return;
             }
 
-            var meta_entity = entity.GetComponent<WeaponMarker>().metaEntity;
-            
-            
+            var marker = entity.GetComponent<WeaponMarker>();
+            var meta = marker.metaEntity;
+            var stats = marker.statsEntity;
+
+            meta.AddComponent<FireRate>().value = stats.GetComponent<FireRate>().value;
+            meta.AddComponent<ClipSize>().value = stats.GetComponent<ClipSize>().value;
         }
     };
 }

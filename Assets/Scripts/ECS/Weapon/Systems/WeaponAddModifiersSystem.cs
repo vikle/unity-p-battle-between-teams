@@ -27,30 +27,29 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var modifiers_entity = entity.GetComponent<WeaponMarker>().modifiersEntity;
+            var modifiers = entity.GetComponent<WeaponMarker>().modifiersEntity;
             var provider = entity.GetComponent<ObjectRef<WeaponDescriptorProvider>>().Target;
 
-            modifiers_entity.AddComponent<Damage>().value = 1f;
-            modifiers_entity.AddComponent<Accuracy>().value = 1f;
-            modifiers_entity.AddComponent<FireRate>().value = 1f;
-            modifiers_entity.AddComponent<ClipSize>().value = 1;
-            modifiers_entity.AddComponent<ReloadTime>().value = 1f;
+            modifiers.AddComponent<Damage>().value = 1f;
+            modifiers.AddComponent<Accuracy>().value = 1f;
+            modifiers.AddComponent<FireRate>().value = 1f;
+            modifiers.AddComponent<ClipSize>().value = 100u;
+            modifiers.AddComponent<ReloadTime>().value = 1f;
 
             var available_modifiers = Enum.GetValues(typeof(EWeaponDescriptor)).Cast<EWeaponDescriptor>().ToList();
 
             for (int i = 0, i_max = provider.modifiersCount; i < i_max; i++)
             {
                 int modifier_index = Random.Range(0, available_modifiers.Count);
-                var modifier = available_modifiers[modifier_index];
                 float value = Random.Range(provider.modificationRange.x, provider.modificationRange.y);
                 
-                switch (modifier)
+                switch (available_modifiers[modifier_index])
                 {
-                    case EWeaponDescriptor.Damage: modifiers_entity.GetComponent<Damage>().value = value; break;
-                    case EWeaponDescriptor.Accuracy: modifiers_entity.GetComponent<Accuracy>().value = value; break;
-                    case EWeaponDescriptor.FireRate: modifiers_entity.GetComponent<FireRate>().value = value; break;
-                    case EWeaponDescriptor.ClipSize: modifiers_entity.GetComponent<ClipSize>().value = (uint)(value * 100f); break;
-                    case EWeaponDescriptor.ReloadTime: modifiers_entity.GetComponent<ReloadTime>().value = value; break;
+                    case EWeaponDescriptor.Damage: modifiers.GetComponent<Damage>().value = value; break;
+                    case EWeaponDescriptor.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
+                    case EWeaponDescriptor.FireRate: modifiers.GetComponent<FireRate>().value = value; break;
+                    case EWeaponDescriptor.ClipSize: modifiers.GetComponent<ClipSize>().value = (uint)(value * 100f); break;
+                    case EWeaponDescriptor.ReloadTime: modifiers.GetComponent<ReloadTime>().value = value; break;
                     default: break;
                 }
                 

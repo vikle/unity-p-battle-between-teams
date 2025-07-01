@@ -24,14 +24,17 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var stats_entity = entity.GetComponent<CharacterMarker>().statsEntity;
+            var marker = entity.GetComponent<CharacterMarker>();
+            var modifiers = marker.modifiersEntity;
+            var stats = marker.statsEntity;
+            
             var descriptor = entity.GetComponent<ObjectRef<CharacterDescriptor>>().Target;
             
-            stats_entity.AddComponent<Accuracy>().value = descriptor.Accuracy;
-            stats_entity.AddComponent<Dexterity>().value = descriptor.Dexterity;
-            stats_entity.AddComponent<Health>().value = descriptor.MaxHealth;
-            stats_entity.AddComponent<Armor>().value = descriptor.MaxArmor;
-            stats_entity.AddComponent<AimTime>().value = descriptor.AimTime;
+            stats.AddComponent<Accuracy>().value = (descriptor.Accuracy * modifiers.GetComponent<Accuracy>().value);
+            stats.AddComponent<Dexterity>().value = (descriptor.Dexterity * modifiers.GetComponent<Dexterity>().value);
+            stats.AddComponent<Health>().value = (descriptor.MaxHealth * modifiers.GetComponent<Health>().value);
+            stats.AddComponent<Armor>().value = (descriptor.MaxArmor * modifiers.GetComponent<Armor>().value);
+            stats.AddComponent<AimTime>().value = (descriptor.AimTime * modifiers.GetComponent<AimTime>().value);
         }
     };
 }

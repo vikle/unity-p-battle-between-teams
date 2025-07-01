@@ -1,3 +1,4 @@
+using UnityEngine;
 using UniversalEntities;
 
 namespace Scorewarrior.ECS
@@ -16,9 +17,19 @@ namespace Scorewarrior.ECS
     {
         public ECharacterState value;
     };
-    
+
     public sealed class CharacterTarget : IComponent
     {
-        public Entity value;
+        public Entity entity;
+    };
+
+    public sealed class CharacterWeapon : IComponent
+    {
+        public Entity entity;
+    };
+    
+    public sealed class CharacterHitBox : IComponent
+    {
+        public Transform transform;
     };
 }

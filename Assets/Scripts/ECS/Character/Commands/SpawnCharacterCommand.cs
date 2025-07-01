@@ -3,7 +3,7 @@ using UniversalEntities;
 
 namespace Scorewarrior.ECS
 {
-    public sealed class CharacterSpawnTask : IEvent
+    public sealed class SpawnCharacterCommand : IEvent
     {
         public GameObject prefab;
         public Vector3 position;

@@ -1,4 +1,3 @@
-using System;
 using UniversalEntities;
 
 namespace Scorewarrior.ECS
@@ -12,7 +11,8 @@ namespace Scorewarrior.ECS
             pipeline
                 .BindSystem<GameStateInitializeSystem>()
                 .BindSystem<GameStateStartingSystem>()
-                .BindSystem<CharacterSpawnSystem>()
+                .BindSystem<SpawnCharacterSystem>()
+                .BindSystem<SpawnCharacterWeaponSystem>()
                 
                 .BindSystem<CharacterStateBehaviourSystem>()
                 
@@ -20,11 +20,11 @@ namespace Scorewarrior.ECS
                 ;
             
             pipeline
-                .BindSystem<CharacterAddStatsSystem>()
                 .BindSystem<CharacterAddModifiersSystem>()
+                .BindSystem<CharacterAddStatsSystem>()
                 .BindSystem<CharacterAddMetaSystem>()
-                .BindSystem<WeaponAddStatsSystem>()
                 .BindSystem<WeaponAddModifiersSystem>()
+                .BindSystem<WeaponAddStatsSystem>()
                 .BindSystem<WeaponAddMetaSystem>()
                 ;
 
@@ -39,9 +39,11 @@ namespace Scorewarrior.ECS
 
             pipeline
                 .BindEvent<GameStateChanged>()
-                .BindEvent<CharacterSpawnTask>()
+                .BindEvent<SpawnCharacterCommand>()
                 .BindEvent<CharacterSpawned>()
                 .BindEvent<CharacterStateChanged>()
+                .BindEvent<WeaponFireCommand>()
+                .BindEvent<WeaponReloadCommand>()
                 ;
         }
 

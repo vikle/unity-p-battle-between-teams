@@ -14,14 +14,16 @@ namespace Scorewarrior
 #endif
     public static class GameObjectPool
     {
-        static readonly Dictionary<GameObject, Stack<GameObject>> sr_prefabToInstance = new(64);
-        static readonly Dictionary<GameObject, GameObject> sr_instanceToPrefab = new(64);
-        static Scene s_poolScene;
+        static Dictionary<GameObject, Stack<GameObject>> s_prefabToInstance;
+        static Dictionary<GameObject, GameObject> s_instanceToPrefab;
+        static Scene s_scene;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void Initialize()
         {
-            s_poolScene = SceneManager.CreateScene(nameof(GameObjectPool));
+            s_prefabToInstance = new(16);
+            s_instanceToPrefab = new(16);
+            s_scene = SceneManager.CreateScene("_GameObjectPoolScene");
         }
 
         public static GameObject Instantiate(GameObject prefab)
@@ -38,7 +40,7 @@ namespace Scorewarrior
         {
             GameObject instance;
 
-            if (sr_prefabToInstance.TryGetValue(prefab, out var stack))
+            if (s_prefabToInstance.TryGetValue(prefab, out var stack))
             {
                 instance = (stack.Count > 0) 
                     ? stack.Pop() 
@@ -47,7 +49,7 @@ namespace Scorewarrior
             else
             {
                 instance = CreateInstance(prefab);
-                sr_prefabToInstance[prefab] = new Stack<GameObject>();
+                s_prefabToInstance[prefab] = new Stack<GameObject>();
             }
             
             var tr = instance.transform;
@@ -62,19 +64,19 @@ namespace Scorewarrior
         private static GameObject CreateInstance(GameObject prefab)
         {
             var instance = Object.Instantiate(prefab);
-            sr_instanceToPrefab[instance] = prefab;
-            SceneManager.MoveGameObjectToScene(instance, s_poolScene);
+            s_instanceToPrefab[instance] = prefab;
+            SceneManager.MoveGameObjectToScene(instance, s_scene);
             return instance;
         }
         
         public static void Return(GameObject instance)
         {
-            var prefab = sr_instanceToPrefab[instance];
+            var prefab = s_instanceToPrefab[instance];
             
-            if (!sr_prefabToInstance.TryGetValue(prefab, out var stack))
+            if (!s_prefabToInstance.TryGetValue(prefab, out var stack))
             {
                 stack = new Stack<GameObject>();
-                sr_prefabToInstance[prefab] = stack;
+                s_prefabToInstance[prefab] = stack;
             }
             
             stack.Push(instance);
@@ -83,12 +85,12 @@ namespace Scorewarrior
 
         public static bool ContainsPrefab(GameObject prefab)
         {
-            return sr_prefabToInstance.ContainsKey(prefab);
+            return s_prefabToInstance.ContainsKey(prefab);
         }
 
         public static bool ContainsInstance(GameObject instance)
         {
-            return sr_instanceToPrefab.ContainsKey(instance);
+            return s_instanceToPrefab.ContainsKey(instance);
         }
     };
 }

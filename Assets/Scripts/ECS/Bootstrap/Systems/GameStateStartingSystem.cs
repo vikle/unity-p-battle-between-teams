@@ -50,7 +50,7 @@ namespace Scorewarrior.ECS
                     
                     int random_index = Random.Range(0, available_prefabs.Count);
 
-                    var spawn_task = pipeline.Trigger<CharacterSpawnTask>();
+                    var spawn_task = pipeline.Trigger<SpawnCharacterCommand>();
                     spawn_task.prefab = available_prefabs[random_index];
                     spawn_task.position = spawn_point.transform.position;
                     spawn_task.team = spawn_point.Team;
