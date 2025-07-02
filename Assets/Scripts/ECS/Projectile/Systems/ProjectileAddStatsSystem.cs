@@ -7,27 +7,29 @@ using Unity.IL2CPP.CompilerServices;
 
 namespace Scorewarrior.ECS
 {
+    using Test.Views;
+    
 #if ENABLE_IL2CPP
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
 #endif
-    public sealed class WeaponAddMetaSystem : IEntityInitializeSystem
+    public sealed class ProjectileAddStatsSystem : IEntityInitializeSystem
     {
-        [Preserve]public WeaponAddMetaSystem(Pipeline pipeline) { }
+        [Preserve]public ProjectileAddStatsSystem(Pipeline pipeline) { }
 
         public void OnAfterEntityCreated(Pipeline pipeline, Entity entity)
         {
-            if (!entity.HasComponent<WeaponMarker>())
+            if (!entity.HasComponent<ProjectileMarker>())
             {
                 return;
             }
 
-            var marker = entity.GetComponent<WeaponMarker>();
-            var meta = marker.meta;
+            var marker = entity.GetComponent<ProjectileMarker>();
             var stats = marker.stats;
-
-            meta.AddComponent<FireRate>().value = stats.GetComponent<FireRate>().value;
-            meta.AddComponent<ClipSize>().value = stats.GetComponent<ClipSize>().value;
+            
+            var prefab = entity.GetComponent<ObjectRef<ProjectilePrefab>>().Target;
+            
+            stats.AddComponent<Speed>().value = prefab.moveSpeed;
         }
     };
 }

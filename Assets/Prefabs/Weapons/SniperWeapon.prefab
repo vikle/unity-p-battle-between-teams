@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptor: {fileID: -1171527620932908372}
   _barrelTransform: {fileID: 7985765005007216794}
-  _bulletPrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
+  projectilePrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
 --- !u!114 &8204256919145047811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6b14a6b6654fa2a995ff058a295cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 2326283250749263236}
+  descriptor: {fileID: 7720045050083055998}
+  provider: {fileID: -1171527620932908372}
 --- !u!1 &5094451911426479266
 GameObject:
   m_ObjectHideFlags: 0

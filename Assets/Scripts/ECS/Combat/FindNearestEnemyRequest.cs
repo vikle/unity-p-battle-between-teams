@@ -5,6 +5,6 @@ namespace Scorewarrior.ECS
     public sealed class FindNearestEnemyRequest : IPromise
     {
         public EPromiseState State { get; set; }
-        public Entity instigatorEntity;
+        public Entity instigator;
     };
 }

@@ -12,12 +12,12 @@ namespace Scorewarrior.Test.Views
         [SerializeField]WeaponDescriptorProvider _descriptor;
         
         [FormerlySerializedAs("BarrelTransform")]public Transform _barrelTransform;
-        public GameObject _bulletPrefab;
+        public GameObject projectilePrefab;
 
         public IWeaponDescriptorProvider Descriptor => _descriptor;
         public IWeapon Model { get; private set; }
         public Transform BarrelTransform => _barrelTransform;
-        public GameObject BulletPrefab => _bulletPrefab;
+        public GameObject ProjectilePrefab => projectilePrefab;
 
         void Reset()
         {

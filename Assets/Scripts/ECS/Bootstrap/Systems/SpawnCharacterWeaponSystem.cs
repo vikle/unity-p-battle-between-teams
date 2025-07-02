@@ -29,7 +29,7 @@ namespace Scorewarrior.ECS
             foreach (var evt_entity in m_filter)
             {
                 var character = evt_entity.GetComponent<CharacterSpawned>().characterEntity;
-                var character_meta = character.GetComponent<CharacterMarker>().metaEntity;
+                var character_meta = character.GetComponent<CharacterMarker>().meta;
                 var character_prefab = character.GetComponent<ObjectRef<CharacterPrefab>>().Target;
                 
                 var prefab = GameObjectPool.Instantiate(character_prefab._weaponPrefab);

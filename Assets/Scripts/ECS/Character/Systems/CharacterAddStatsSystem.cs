@@ -25,8 +25,8 @@ namespace Scorewarrior.ECS
             }
             
             var marker = entity.GetComponent<CharacterMarker>();
-            var modifiers = marker.modifiersEntity;
-            var stats = marker.statsEntity;
+            var modifiers = marker.modifiers;
+            var stats = marker.stats;
             
             var descriptor = entity.GetComponent<ObjectRef<CharacterDescriptor>>().Target;
             

@@ -27,7 +27,7 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var modifiers = entity.GetComponent<WeaponMarker>().modifiersEntity;
+            var modifiers = entity.GetComponent<WeaponMarker>().modifiers;
             var provider = entity.GetComponent<ObjectRef<WeaponDescriptorProvider>>().Target;
 
             modifiers.AddComponent<Damage>().value = 1f;

@@ -15,7 +15,7 @@ namespace Scorewarrior.Test.Models
         
         public IWeaponPrefab Prefab { get; }
         
-        static readonly Dictionary<GameObject, IBulletPrefab> _cachedBulletPrefabs = new(32);
+        static readonly Dictionary<GameObject, IProjectilePrefab> _cachedBulletPrefabs = new(32);
         
         public Weapon(IWeaponPrefab prefab)
 		{
@@ -37,11 +37,11 @@ namespace Scorewarrior.Test.Models
             _lastFireTime = (Time.time + 1f / Prefab.Descriptor.FireRate);
             var barrelPosition = Prefab.BarrelTransform.position;
             
-            var bulletInstance = GameObjectPool.Instantiate(Prefab.BulletPrefab, barrelPosition);
+            var bulletInstance = GameObjectPool.Instantiate(Prefab.ProjectilePrefab, barrelPosition);
             
             if (!_cachedBulletPrefabs.TryGetValue(bulletInstance, out var bulletPrefab) || bulletPrefab == null)
             {
-                bulletPrefab = bulletInstance.GetComponent<IBulletPrefab>();
+                bulletPrefab = bulletInstance.GetComponent<IProjectilePrefab>();
                 _cachedBulletPrefabs[bulletInstance] = bulletPrefab;
             }
             

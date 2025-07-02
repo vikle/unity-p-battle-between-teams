@@ -23,4 +23,6 @@ namespace Scorewarrior.ECS
     public sealed class FireRate : FloatStat { };
     public sealed class ClipSize : UIntStat { };
     public sealed class ReloadTime : FloatStat { };
+    
+    public sealed class Speed : FloatStat { };
 };

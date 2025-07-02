@@ -15,6 +15,9 @@ namespace Scorewarrior.ECS
                 .BindSystem<SpawnCharacterWeaponSystem>()
                 
                 .BindSystem<CharacterStateBehaviourSystem>()
+                .BindSystem<WeaponFireSystem>()
+                .BindSystem<WeaponReloadSystem>()
+                .BindSystem<ProjectileSpawnSystem>()
                 
                 .BindSystem<FindNearestEnemyRequestHandleSystem>()
                 ;
@@ -26,6 +29,8 @@ namespace Scorewarrior.ECS
                 .BindSystem<WeaponAddModifiersSystem>()
                 .BindSystem<WeaponAddStatsSystem>()
                 .BindSystem<WeaponAddMetaSystem>()
+                .BindSystem<ProjectileAddStatsSystem>()
+                .BindSystem<ProjectileAddMetaSystem>()
                 ;
 
             pipeline
@@ -44,6 +49,7 @@ namespace Scorewarrior.ECS
                 .BindEvent<CharacterStateChanged>()
                 .BindEvent<WeaponFireCommand>()
                 .BindEvent<WeaponReloadCommand>()
+                .BindEvent<ProjectileSpawnCommand>()
                 ;
         }
 

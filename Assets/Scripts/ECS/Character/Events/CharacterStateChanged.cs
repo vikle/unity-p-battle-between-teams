@@ -4,7 +4,7 @@ namespace Scorewarrior.ECS
 {
     public sealed class CharacterStateChanged : IEvent
     {
-        public Entity characterEntity;
-        public ECharacterState newState;
+        public Entity character;
+        public ECharacterState state;
     };
 }

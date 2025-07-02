@@ -39,7 +39,7 @@ namespace Scorewarrior.ECS
 
                 var prefab = entity.GetComponent<ObjectRef<CharacterPrefab>>().Target;
                 
-                var meta = marker.metaEntity;
+                var meta = marker.meta;
                 meta.GetComponent<Team>().value = cmd.team;
                 meta.GetComponent<Sector>().value = cmd.sector;
                 meta.GetComponent<CharacterHitBox>().transform = prefab._hitBox;

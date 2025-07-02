@@ -23,8 +23,8 @@ namespace Scorewarrior.ECS
             }
             
             var marker = entity.GetComponent<CharacterMarker>();
-            var meta = marker.metaEntity;
-            var stats = marker.statsEntity;
+            var meta = marker.meta;
+            var stats = marker.stats;
             
             meta.AddComponent<Team>();
             meta.AddComponent<Sector>();

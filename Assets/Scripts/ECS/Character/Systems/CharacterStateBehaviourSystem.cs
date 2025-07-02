@@ -27,20 +27,20 @@ namespace Scorewarrior.ECS
             foreach (var character in m_charactersFilter)
             {
                 var marker = character.GetComponent<CharacterMarker>();
-                var meta = marker.metaEntity;
+                var meta = marker.meta;
                 var state_comp = meta.GetComponent<CharacterState>();
-                var state_value = state_comp.value;
+                ref var state_value = ref state_comp.value;
 
                 if (state_value == ECharacterState.Die) continue;
                 
-                ref var character_target = ref meta.GetComponent<CharacterTarget>().entity;
+                ref var target = ref meta.GetComponent<CharacterTarget>().entity;
                 ref float next_aim_time = ref meta.GetComponent<AimTime>().value;
 
-                bool target_is_valid = (character_target != null);
+                bool target_is_valid = (target != null);
 
                 if (target_is_valid && state_value != ECharacterState.Idle)
                 {
-                    var target_meta_entity = character_target.GetComponent<CharacterMarker>().metaEntity;
+                    var target_meta_entity = target.GetComponent<CharacterMarker>().meta;
                     var target_state = target_meta_entity.GetComponent<CharacterState>().value;
                     target_is_valid = (target_state != ECharacterState.Die);
                 }
@@ -50,18 +50,18 @@ namespace Scorewarrior.ECS
                 switch (state_value)
                 {
                     case ECharacterState.Idle:
-                        if (character_target == null)
+                        if (target == null)
                         {
-                            pipeline.Then<FindNearestEnemyRequest>().instigatorEntity = character;
+                            pipeline.Then<FindNearestEnemyRequest>().instigator = character;
                             Debug.Log($"CharacterStateBehaviourSystem.Then<FindNearestEnemyRequest>");
                         }
                         else
                         {
-                            float aim_time = marker.statsEntity.GetComponent<AimTime>().value;
+                            float aim_time = marker.stats.GetComponent<AimTime>().value;
                             next_aim_time = (TimeData.Time + aim_time);
-                            SwitchState(ECharacterState.Aiming, state_comp, character, pipeline);
+                            SwitchState(ECharacterState.Aiming, ref state_value, character, pipeline);
                             var character_transform = character.GetComponent<ObjectRef<Transform>>().Target;
-                            var character_target_transform = character_target.GetComponent<ObjectRef<Transform>>().Target;
+                            var character_target_transform = target.GetComponent<ObjectRef<Transform>>().Target;
                             character_transform.LookAt(character_target_transform.position);
                         }
                         break;
@@ -71,12 +71,12 @@ namespace Scorewarrior.ECS
                         {
                             if (next_aim_time <= TimeData.Time)
                             {
-                                SwitchState(ECharacterState.TryShooting, state_comp, character, pipeline);
+                                SwitchState(ECharacterState.TryShooting, ref state_value, character, pipeline);
                             }
                         }
                         else
                         {
-                            SwitchState(ECharacterState.Idle, state_comp, character, pipeline);
+                            SwitchState(ECharacterState.Idle, ref state_value, character, pipeline);
                         }
                         break;
                     
@@ -84,35 +84,37 @@ namespace Scorewarrior.ECS
                     case ECharacterState.ShootFire:
                         if (target_is_valid)
                         {
-                            var weapon_meta = weapon.GetComponent<WeaponMarker>().metaEntity;
+                            var weapon_marker = weapon.GetComponent<WeaponMarker>();
+                            var weapon_meta = weapon_marker.meta;
                             uint ammo = weapon_meta.GetComponent<ClipSize>().value;
 
                             if (ammo > 0u)
                             {
                                 float last_fire_time = weapon_meta.GetComponent<FireRate>().value;
                                 
-                                if (last_fire_time > TimeData.Time)
+                                if (last_fire_time <= TimeData.Time)
                                 {
                                     var cmd = pipeline.Trigger<WeaponFireCommand>();
                                     cmd.weapon = weapon;
                                     cmd.owner = character;
+                                    cmd.target = target;
                                     
-                                    SwitchState(ECharacterState.ShootFire, state_comp, character, pipeline);
+                                    SwitchState(ECharacterState.ShootFire, ref state_value, character, pipeline);
                                 }
                                 else
                                 {
-                                    SwitchState(ECharacterState.TryShooting, state_comp, character, pipeline);
+                                    SwitchState(ECharacterState.TryShooting, ref state_value, character, pipeline);
                                 }
                             }
                             else
                             {
-                                SwitchState(ECharacterState.Reloading, state_comp, character, pipeline);
-                                next_aim_time = weapon_meta.GetComponent<ReloadTime>().value;
+                                SwitchState(ECharacterState.Reloading, ref state_value, character, pipeline);
+                                next_aim_time = weapon_marker.stats.GetComponent<ReloadTime>().value;
                             }
                         }
                         else
                         {
-                            SwitchState(ECharacterState.Idle, state_comp, character, pipeline);
+                            SwitchState(ECharacterState.Idle, ref state_value, character, pipeline);
                         }
                         break;
                     
@@ -123,11 +125,10 @@ namespace Scorewarrior.ECS
                                 ? ECharacterState.TryShooting 
                                 : ECharacterState.Idle;
                             
-                            SwitchState(next_state, state_comp, character, pipeline);
+                            SwitchState(next_state, ref state_value, character, pipeline);
                             
                             var cmd = pipeline.Trigger<WeaponReloadCommand>();
                             cmd.weapon = weapon;
-                            cmd.owner = character;
                         }
                         break;
                     
@@ -136,13 +137,16 @@ namespace Scorewarrior.ECS
             }
         }
         
-        private static void SwitchState(ECharacterState newState, CharacterState stateComp, Entity characterEntity, Pipeline pipeline)
+        private static void SwitchState(ECharacterState newState, ref ECharacterState currentState, Entity characterEntity, Pipeline pipeline)
         {
-            var evt = pipeline.Trigger<CharacterStateChanged>();
-            evt.characterEntity = characterEntity;
-            evt.newState = newState;
-            stateComp.value = newState;
+            if (currentState == newState) return;
             
+            currentState = newState;
+            
+            var evt = pipeline.Trigger<CharacterStateChanged>();
+            evt.character = characterEntity;
+            evt.state = newState;
+
             Debug.Log($"CharacterStateBehaviourSystem.Trigger<CharacterStateChanged> = {newState}");
         }
     };

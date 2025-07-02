@@ -19,7 +19,7 @@ namespace Scorewarrior
         static Scene s_scene;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        public static void Initialize()
+        private static void Initialize()
         {
             s_prefabToInstance = new(16);
             s_instanceToPrefab = new(16);

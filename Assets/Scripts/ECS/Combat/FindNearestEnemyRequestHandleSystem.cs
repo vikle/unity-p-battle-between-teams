@@ -31,29 +31,29 @@ namespace Scorewarrior.ECS
             foreach (var request_entity in m_requestFilter)
             {
                 var request = request_entity.GetComponent<FindNearestEnemyRequest>();
-                var instigator_entity = request.instigatorEntity;
+                var instigator = request.instigator;
                 
-                var instigator_marker = instigator_entity.GetComponent<CharacterMarker>();
-                var instigator_team = instigator_marker.metaEntity.GetComponent<Team>().value;
+                var instigator_marker = instigator.GetComponent<CharacterMarker>();
+                var instigator_team = instigator_marker.meta.GetComponent<Team>().value;
                 
-                var instigator_tr = instigator_entity.GetComponent<ObjectRef<Transform>>().Target;
+                var instigator_tr = instigator.GetComponent<ObjectRef<Transform>>().Target;
                 var instigator_pos = instigator_tr.position;
                 
                 float nearest_distance = float.MaxValue;
 
-                var instigator_target = instigator_marker.metaEntity.GetComponent<CharacterTarget>();
+                var instigator_target = instigator_marker.meta.GetComponent<CharacterTarget>();
                 instigator_target.entity = null;
                 
-                foreach (var other_character_entity in m_charactersFilter)
+                foreach (var other_character in m_charactersFilter)
                 {
-                    if (instigator_entity == other_character_entity) continue;
+                    if (instigator == other_character) continue;
 
-                    var other_character_marker = other_character_entity.GetComponent<CharacterMarker>();
-                    var other_character_team = other_character_marker.metaEntity.GetComponent<Team>().value;
+                    var other_character_marker = other_character.GetComponent<CharacterMarker>();
+                    var other_character_team = other_character_marker.meta.GetComponent<Team>().value;
                     
                     if (instigator_team == other_character_team) continue;
                     
-                    var other_character_tr = other_character_entity.GetComponent<ObjectRef<Transform>>().Target;
+                    var other_character_tr = other_character.GetComponent<ObjectRef<Transform>>().Target;
 
                     var direction = (instigator_pos - other_character_tr.position);
                     float distance = direction.sqrMagnitude;
@@ -61,7 +61,7 @@ namespace Scorewarrior.ECS
                     if (distance < nearest_distance)
                     {
                         nearest_distance = distance;
-                        instigator_target.entity = other_character_entity;
+                        instigator_target.entity = other_character;
                     }
                 }
 

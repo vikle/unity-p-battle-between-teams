@@ -32,4 +32,17 @@ namespace Scorewarrior.ECS
     {
         public Transform transform;
     };
+    
+    public sealed class ProjectileTarget : IComponent
+    {
+        public Entity entity;
+    };
+    
+    public sealed class ProjectileMoveMeta : IComponent
+    {
+        public Vector3 startedPosition;
+        public Vector3 moveDirection;
+        public float totalDistance;
+        public float currentDistance;
+    };
 }

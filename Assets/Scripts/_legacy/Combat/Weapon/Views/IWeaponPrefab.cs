@@ -9,7 +9,7 @@ namespace Scorewarrior.Test.Views
         IWeaponDescriptorProvider Descriptor { get; }
         IWeapon Model { get; }
         Transform BarrelTransform { get; }
-        GameObject BulletPrefab { get; }
+        GameObject ProjectilePrefab { get; }
         
         void Init();
     }

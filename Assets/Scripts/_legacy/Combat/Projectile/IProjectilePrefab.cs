@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scorewarrior.Test.Views
 {
-    public interface IBulletPrefab
+    public interface IProjectilePrefab
     {
         void Init(float damage, IDamageable target, Vector3 targetPosition, bool hit);
     }

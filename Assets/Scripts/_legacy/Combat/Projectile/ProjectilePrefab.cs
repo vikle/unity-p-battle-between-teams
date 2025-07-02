@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scorewarrior.Test.Views
 {
-	public sealed class BulletPrefab : CachedMonoBehaviour, IBulletPrefab
+	public sealed class ProjectilePrefab : CachedMonoBehaviour, IProjectilePrefab
     {
         [Min(1f)]public float moveSpeed = 30f;
 
@@ -18,7 +18,7 @@ namespace Scorewarrior.Test.Views
 		float _currentDistance;
         
         // ReSharper disable Unity.PerformanceAnalysis
-        void IBulletPrefab.Init(float damage, IDamageable target, Vector3 targetPosition, bool hit)
+        void IProjectilePrefab.Init(float damage, IDamageable target, Vector3 targetPosition, bool hit)
 		{
             _damage = damage;
             _target = target;

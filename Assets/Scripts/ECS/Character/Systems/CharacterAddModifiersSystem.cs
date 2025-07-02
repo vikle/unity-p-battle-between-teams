@@ -27,7 +27,7 @@ namespace Scorewarrior.ECS
                 return;
             }
             
-            var modifiers = entity.GetComponent<CharacterMarker>().modifiersEntity;
+            var modifiers = entity.GetComponent<CharacterMarker>().modifiers;
             var provider = entity.GetComponent<ObjectRef<CharacterDescriptorProvider>>().Target;
 
             modifiers.AddComponent<Accuracy>().value = 1f;

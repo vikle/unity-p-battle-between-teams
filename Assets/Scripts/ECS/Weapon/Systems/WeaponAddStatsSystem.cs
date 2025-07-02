@@ -25,8 +25,8 @@ namespace Scorewarrior.ECS
             }
             
             var marker = entity.GetComponent<WeaponMarker>();
-            var modifiers_entity = marker.modifiersEntity;
-            var stats_entity = marker.statsEntity;
+            var modifiers_entity = marker.modifiers;
+            var stats_entity = marker.stats;
             
             var descriptor = entity.GetComponent<ObjectRef<WeaponDescriptor>>().Target;
 
