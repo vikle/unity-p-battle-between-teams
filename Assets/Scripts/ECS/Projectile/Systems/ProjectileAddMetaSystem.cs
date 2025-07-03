@@ -26,14 +26,17 @@ namespace Scorewarrior.ECS
             var marker = entity.GetComponent<ProjectileMarker>();
             var meta = marker.meta;
 
-            meta.AddComponent<Damage>();
-            meta.AddComponent<ProjectileTarget>().entity = null;
+            meta.AddComponent<Damage>().value = 0f;
+
+            var target = meta.AddComponent<ProjectileTarget>();
+            target.entity = null;
+            target.position = Vector3.zero;
+            target.distance = 0f;
             
-            var move_meta = entity.GetComponent<ProjectileMoveMeta>();
-            move_meta.startedPosition = Vector3.zero;
-            move_meta.moveDirection = Vector3.zero;
-            move_meta.totalDistance = 0f;
-            move_meta.currentDistance = 0f;
+            var move_meta = meta.AddComponent<ProjectileMoveMeta>();
+            move_meta.origin = Vector3.zero;
+            move_meta.direction = Vector3.zero;
+            move_meta.rayPosition = 0f;
         }
     };
 }

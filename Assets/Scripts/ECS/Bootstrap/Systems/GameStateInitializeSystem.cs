@@ -34,8 +34,7 @@ namespace Scorewarrior.ECS
 
                 foreach (var character_entity in m_charactersFilter)
                 {
-                    var character_game_object = character_entity.GetComponent<ObjectRef<GameObject>>().Target;
-                    GameObjectPool.Return(character_game_object);
+                    GameObjectPool.Return(character_entity);
                 }
                 
                 break;

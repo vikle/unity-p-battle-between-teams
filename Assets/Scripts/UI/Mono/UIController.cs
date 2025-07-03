@@ -1,4 +1,5 @@
-﻿using Scorewarrior.Test.Models;
+﻿using System;
+using Scorewarrior.Test.Models;
 using UnityEngine;
 
 namespace Scorewarrior.UI
@@ -10,18 +11,27 @@ namespace Scorewarrior.UI
         [SerializeField]UIHud _uiHud;
 
         ECS.GameController m_gameController;
+        UIControllerModel  m_model;
         
         void Awake()
         {
             m_gameController = DIContainer.Resolve<ECS.GameController>();
-            
+            m_model = DIContainer.Resolve<UIControllerModel>();
+
+            m_model.onGameStateChanged = OnGameStateChanged;
+
             // Controllers.GameController.OnGameStateChanged += OnGameStateChanged;
             // Controllers.GameController.OnCharacterSpawned += OnCharacterSpawned;
             // Controllers.GameController.OnCharacterDamageTaken += OnCharacterDamageTaken;
             // Controllers.GameController.OnCharacterDie += OnCharacterDie;
         }
 
-        public void OnGameStateChanged(EGameState newState)
+        void OnDestroy()
+        {
+            m_model.Dispose();
+        }
+
+        private void OnGameStateChanged(EGameState newState)
         {
             _continueBtn.SetActive(newState == EGameState.Initiated);
             _replayBtn.SetActive(newState == EGameState.Finished);

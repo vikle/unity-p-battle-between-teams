@@ -18,6 +18,10 @@ namespace Scorewarrior.ECS
                 .BindSystem<WeaponFireSystem>()
                 .BindSystem<WeaponReloadSystem>()
                 .BindSystem<ProjectileSpawnSystem>()
+                .BindSystem<ProjectileMoveSystem>()
+                .BindSystem<ProjectileHitSystem>()
+                
+                .BindSystem<TakeDamageSystem>()
                 
                 .BindSystem<FindNearestEnemyRequestHandleSystem>()
                 ;
@@ -47,9 +51,11 @@ namespace Scorewarrior.ECS
                 .BindEvent<SpawnCharacterCommand>()
                 .BindEvent<CharacterSpawned>()
                 .BindEvent<CharacterStateChanged>()
+                .BindEvent<CharacterDied>()
                 .BindEvent<WeaponFireCommand>()
                 .BindEvent<WeaponReloadCommand>()
                 .BindEvent<ProjectileSpawnCommand>()
+                .BindEvent<TakeDamageCommand>()
                 ;
         }
 

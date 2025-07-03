@@ -1,4 +1,4 @@
-using Scorewarrior.Test.Views;
+using UnityEngine;
 using UnityEngine.Scripting;
 using UniversalEntities;
 
@@ -38,11 +38,22 @@ namespace Scorewarrior.ECS
                 var entity = actor.EntityRef;
 
                 var marker = entity.GetComponent<ProjectileMarker>();
+                var meta = marker.meta;
+
+                var target = meta.GetComponent<ProjectileTarget>();
                 
-                marker.meta.GetComponent<ProjectileTarget>().entity = cmd.target;
-                marker.meta.GetComponent<Damage>().value = cmd.damage;
+                target.entity = cmd.target;
+                target.position = cmd.hitBoxPosition;
+                target.distance = Vector3.Distance(cmd.position, target.position);
+                target.hit = cmd.hit;
+
+                var move_meta = meta.GetComponent<ProjectileMoveMeta>();
+
+                move_meta.origin = cmd.position;
+                move_meta.direction = Vector3.Normalize(target.position - cmd.position);
+                move_meta.rayPosition = 0f;
                 
-                
+                meta.GetComponent<Damage>().value = cmd.damage;
             }
         }
     };

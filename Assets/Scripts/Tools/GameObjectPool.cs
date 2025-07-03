@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UniversalEntities;
 
 #if ENABLE_IL2CPP
 using Unity.IL2CPP.CompilerServices;
@@ -67,6 +68,14 @@ namespace Scorewarrior
             s_instanceToPrefab[instance] = prefab;
             SceneManager.MoveGameObjectToScene(instance, s_scene);
             return instance;
+        }
+
+        public static void Return(Entity entity)
+        {
+            if (entity.HasComponent<ObjectRef<GameObject>>())
+            {
+                Return(entity.GetComponent<ObjectRef<GameObject>>().Target);
+            }
         }
         
         public static void Return(GameObject instance)

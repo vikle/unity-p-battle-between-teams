@@ -36,13 +36,15 @@ namespace Scorewarrior.ECS
     public sealed class ProjectileTarget : IComponent
     {
         public Entity entity;
+        public Vector3 position;
+        public float distance;
+        public bool hit;
     };
     
     public sealed class ProjectileMoveMeta : IComponent
     {
-        public Vector3 startedPosition;
-        public Vector3 moveDirection;
-        public float totalDistance;
-        public float currentDistance;
+        public Vector3 origin;
+        public Vector3 direction;
+        public float rayPosition;
     };
 }

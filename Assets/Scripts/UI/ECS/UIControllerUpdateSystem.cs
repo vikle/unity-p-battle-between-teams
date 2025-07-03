@@ -16,12 +16,12 @@ namespace Scorewarrior.ECS
     public sealed class UIControllerUpdateSystem : IUpdateSystem
     {
         readonly Filter m_gameStateChangedFilter;
-        readonly UIController m_uiController;
+        readonly UIControllerModel m_model;
         
         [Preserve]public UIControllerUpdateSystem(Pipeline pipeline)
         {
             m_gameStateChangedFilter = pipeline.Query.With<GameStateChanged>().Build();
-            DIContainer.TryGet(out m_uiController);
+            m_model = DIContainer.Resolve<UIControllerModel>();
         }
         
         public void OnUpdate(Pipeline pipeline)
@@ -31,7 +31,7 @@ namespace Scorewarrior.ECS
             foreach (var game_state_entity in m_gameStateChangedFilter)
             {
                 var game_state = game_state_entity.GetComponent<GameStateChanged>().value;
-                m_uiController.OnGameStateChanged(game_state);
+                m_model.Call_OnGameStateChanged(game_state);
             }
         }
     };

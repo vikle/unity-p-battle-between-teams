@@ -44,7 +44,7 @@ namespace Scorewarrior.ECS
                 meta.GetComponent<Sector>().value = cmd.sector;
                 meta.GetComponent<CharacterHitBox>().transform = prefab._hitBox;
                 
-                pipeline.Trigger<CharacterSpawned>().characterEntity = entity;
+                pipeline.Trigger<CharacterSpawned>().character = entity;
             }
         }
     };

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Scorewarrior.Test.Models;
 using UnityEngine;
+using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
@@ -28,21 +29,49 @@ namespace Scorewarrior.UI
             }
         }
         
-        public bool IsCompatibleCharacter(ICharacter character)
+        public bool IsCompatibleTeam(ETeam characterTeam)
         {
-            return (character.Team == _team);
+            return (characterTeam == _team);
         }
 
         public bool TryAttachCharacter(ICharacter character)
         {
             foreach (var icon in _preparedIcons)
             {
-                if (!icon.IsCompatibleWith(character.Sector)) continue;
+                if (!icon.IsCompatibleSector(character.Sector)) continue;
                 icon.AttachCharacter(character);
                 return true;
             }
             
             return false;
+        }
+        
+        public bool TryAttachCharacter(Entity characterEntity, uint sector)
+        {
+            foreach (var icon in _preparedIcons)
+            {
+                if (!icon.IsCompatibleSector(sector)) continue;
+                icon.AttachCharacter(characterEntity);
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public void OnCharacterDamageTaken(Entity characterEntity)
+        {
+            foreach (var icon in _preparedIcons)
+            {
+                icon.TryUpdateBars(characterEntity);
+            }
+        }
+        
+        public void OnCharacterDie(Entity characterEntity)
+        {
+            foreach (var icon in _preparedIcons)
+            {
+                icon.TryDispose(characterEntity);
+            }
         }
     }
 }

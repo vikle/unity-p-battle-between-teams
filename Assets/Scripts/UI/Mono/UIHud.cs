@@ -1,11 +1,28 @@
-﻿using UnityEngine;
+﻿using Scorewarrior.ECS;
+using UnityEngine;
 using Scorewarrior.Test.Models;
+using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
     public sealed class UIHud : MonoBehaviour
     {
         [SerializeField]UIHudPanel[] _uiHudPanels;
+
+        UIHudModel m_model;
+        
+        void Awake()
+        {
+            m_model = DIContainer.Resolve<UIHudModel>();
+            m_model.onCharacterSpawned = OnCharacterSpawned;
+            m_model.onCharacterDamageTaken = OnCharacterDamageTaken;
+            m_model.onCharacterDie = OnCharacterDie;
+        }
+
+        void OnDestroy()
+        {
+            m_model.Dispose();
+        }
 
         void Reset()
         {
@@ -14,13 +31,49 @@ namespace Scorewarrior.UI
 
         public void AttachCharacter(ICharacter character)
         {
-            for (int i = 0, i_max = _uiHudPanels.Length; i < i_max; i++)
+            foreach (var panel in _uiHudPanels)
             {
-                var panel = _uiHudPanels[i];
-                if (!panel.IsCompatibleCharacter(character)) continue;
+                if (!panel.IsCompatibleTeam(character.Team)) continue;
                 if (!panel.TryAttachCharacter(character)) continue;
                 break;
             }
+        }
+
+        private void OnCharacterDamageTaken(Entity characterEntity)
+        {
+            foreach (var panel in _uiHudPanels)
+            {
+                panel.OnCharacterDamageTaken(characterEntity);
+            }
+        }
+        
+        private void OnCharacterDie(Entity characterEntity)
+        {
+            foreach (var panel in _uiHudPanels)
+            {
+                panel.OnCharacterDie(characterEntity);
+            }
+        }
+
+        private void OnCharacterSpawned(Entity characterEntity)
+        {
+            GetTeamAndSector(characterEntity, out var team, out uint sector);
+            
+            foreach (var panel in _uiHudPanels)
+            {
+                if (!panel.IsCompatibleTeam(team)) continue;
+                if (!panel.TryAttachCharacter(characterEntity, sector)) continue;
+                break;
+            }
+        }
+
+        private static void GetTeamAndSector(Entity characterEntity, 
+                                             out ETeam team, 
+                                             out uint sector)
+        {
+            var marker = characterEntity.GetComponent<CharacterMarker>();
+            team = marker.meta.GetComponent<Team>().value;
+            sector = marker.meta.GetComponent<Sector>().value;
         }
     }
 }

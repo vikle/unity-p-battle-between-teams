@@ -2,7 +2,7 @@ using UniversalEntities;
 
 namespace Scorewarrior.ECS
 {
-    public sealed class CharacterSpawned : IEvent
+    public sealed class CharacterDied : IEvent
     {
         public Entity character;
     };
