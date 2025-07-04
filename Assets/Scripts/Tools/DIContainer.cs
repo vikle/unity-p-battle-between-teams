@@ -37,6 +37,11 @@ namespace Scorewarrior
             sr_container.Clear();
         }
 
+        public static void Resolve<T>(out T instance) where T : class, new()
+        {
+            instance = Resolve<T>();
+        }
+        
         public static T Resolve<T>() where T : class, new()
         {
             if (!TryGet<T>(out var obj))

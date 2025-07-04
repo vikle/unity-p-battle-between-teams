@@ -3,8 +3,10 @@ using UniversalEntities;
 
 namespace Scorewarrior.ECS
 {
-    public sealed class SpawnCharacterCommand : IEvent
+    public sealed class SpawnCharacterRequest : IPromise
     {
+        public EPromiseState State { get; set; }
+        
         public GameObject prefab;
         public Vector3 position;
         public ETeam team;

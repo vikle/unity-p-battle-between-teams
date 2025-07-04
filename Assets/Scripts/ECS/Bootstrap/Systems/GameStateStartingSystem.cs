@@ -16,20 +16,32 @@ namespace Scorewarrior.ECS
     public sealed class GameStateStartingSystem : IUpdateSystem
     {
         readonly Filter m_gameStateChangedFilter;
-        
+        readonly GameController m_gameController;
         readonly SpawnPointSet m_spawnPointSet;
         readonly CharacterPrefabSet m_characterPrefabSet;
         
         [Preserve]public GameStateStartingSystem(Pipeline pipeline)
         {
             m_gameStateChangedFilter = pipeline.Query.With<GameStateChanged>().Build();
-            
+            DIContainer.Resolve(out m_gameController);
             DIContainer.TryGet(out m_spawnPointSet);
             DIContainer.TryGet(out m_characterPrefabSet);
         }
         
-        // ReSharper disable Unity.PerformanceAnalysis
         public void OnUpdate(Pipeline pipeline)
+        {
+            if (m_gameController.GameState != EGameState.Starting) return;
+            
+            GameStateChanged_Process(pipeline);
+
+            if (!m_gameController.IsNeedWait)
+            {
+                m_gameController.StartGame();
+            }
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        private void GameStateChanged_Process(Pipeline pipeline)
         {
             if (m_gameStateChangedFilter.IsEmpty) return;
 
@@ -50,17 +62,20 @@ namespace Scorewarrior.ECS
                     
                     int random_index = Random.Range(0, available_prefabs.Count);
 
-                    var spawn_task = pipeline.Trigger<SpawnCharacterCommand>();
+                    var spawn_task = pipeline.Then<SpawnCharacterRequest>();
                     spawn_task.prefab = available_prefabs[random_index];
                     spawn_task.position = spawn_point.transform.position;
                     spawn_task.team = spawn_point.Team;
                     spawn_task.sector = spawn_point.Sector;
                     
                     available_prefabs.RemoveAt(random_index);
+                    
+                    m_gameController.AddWaiter();
                 }
                 
                 break;
             }
         }
+        
     };
 }

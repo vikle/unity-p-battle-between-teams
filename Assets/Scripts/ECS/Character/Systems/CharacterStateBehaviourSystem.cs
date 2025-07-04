@@ -38,10 +38,10 @@ namespace Scorewarrior.ECS
 
                 bool target_is_valid = (target != null);
 
-                if (target_is_valid && state_value != ECharacterState.Idle)
+                if (target_is_valid)
                 {
-                    var target_meta_entity = target.GetComponent<CharacterMarker>().meta;
-                    var target_state = target_meta_entity.GetComponent<CharacterState>().value;
+                    var target_meta = target.GetComponent<CharacterMarker>().meta;
+                    var target_state = target_meta.GetComponent<CharacterState>().value;
                     target_is_valid = (target_state != ECharacterState.Die);
                 }
 
@@ -50,10 +50,9 @@ namespace Scorewarrior.ECS
                 switch (state_value)
                 {
                     case ECharacterState.Idle:
-                        if (target == null)
+                        if (!target_is_valid)
                         {
                             pipeline.Then<FindNearestEnemyRequest>().instigator = character;
-                            Debug.Log($"CharacterStateBehaviourSystem.Then<FindNearestEnemyRequest>");
                         }
                         else
                         {

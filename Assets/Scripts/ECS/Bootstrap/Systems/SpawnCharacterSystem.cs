@@ -14,10 +14,12 @@ namespace Scorewarrior.ECS
     public sealed class SpawnCharacterSystem : IUpdateSystem
     {
         readonly Filter m_filter;
+        readonly GameController m_gameController;
         
         [Preserve]public SpawnCharacterSystem(Pipeline pipeline)
         {
-            m_filter = pipeline.Query.With<SpawnCharacterCommand>().Build();
+            m_filter = pipeline.Query.With<SpawnCharacterRequest>().Build();
+            DIContainer.Resolve(out m_gameController);
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
@@ -27,9 +29,10 @@ namespace Scorewarrior.ECS
 
             foreach (var cmd_entity in m_filter)
             {
-                var cmd = cmd_entity.GetComponent<SpawnCharacterCommand>();
+                var request = cmd_entity.GetComponent<SpawnCharacterRequest>();
+                request.State = EPromiseState.Fulfilled;
                 
-                var prefab_clone = GameObjectPool.Instantiate(cmd.prefab, cmd.position);
+                var prefab_clone = GameObjectPool.Instantiate(request.prefab, request.position);
             
                 var actor = prefab_clone.GetComponent<EntityActor>();
                 actor.InitEntity();
@@ -40,11 +43,15 @@ namespace Scorewarrior.ECS
                 var prefab = entity.GetComponent<ObjectRef<CharacterPrefab>>().Target;
                 
                 var meta = marker.meta;
-                meta.GetComponent<Team>().value = cmd.team;
-                meta.GetComponent<Sector>().value = cmd.sector;
+                meta.GetComponent<Team>().value = request.team;
+                meta.GetComponent<Sector>().value = request.sector;
                 meta.GetComponent<CharacterHitBox>().transform = prefab._hitBox;
                 
                 pipeline.Trigger<CharacterSpawned>().character = entity;
+                
+                m_gameController.FreeWaiter();
+                
+                break;
             }
         }
     };

@@ -13,7 +13,7 @@ namespace Scorewarrior.UI
         
         void Awake()
         {
-            m_model = DIContainer.Resolve<UIHudModel>();
+            DIContainer.Resolve(out m_model);
             m_model.onCharacterSpawned = OnCharacterSpawned;
             m_model.onCharacterDamageTaken = OnCharacterDamageTaken;
             m_model.onCharacterDie = OnCharacterDie;

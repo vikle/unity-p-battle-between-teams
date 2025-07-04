@@ -22,6 +22,7 @@ namespace Scorewarrior.ECS
                 .BindSystem<ProjectileHitSystem>()
                 
                 .BindSystem<TakeDamageSystem>()
+                .BindSystem<CharacterDiedHandleSystem>()
                 
                 .BindSystem<FindNearestEnemyRequestHandleSystem>()
                 ;
@@ -44,11 +45,11 @@ namespace Scorewarrior.ECS
             
             pipeline
                 .BindPromise<FindNearestEnemyRequest>()
+                .BindPromise<SpawnCharacterRequest>()
                 ;
 
             pipeline
                 .BindEvent<GameStateChanged>()
-                .BindEvent<SpawnCharacterCommand>()
                 .BindEvent<CharacterSpawned>()
                 .BindEvent<CharacterStateChanged>()
                 .BindEvent<CharacterDied>()

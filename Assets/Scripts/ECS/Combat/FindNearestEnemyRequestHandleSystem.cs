@@ -48,21 +48,20 @@ namespace Scorewarrior.ECS
                 {
                     if (instigator == other_character) continue;
 
-                    var other_character_marker = other_character.GetComponent<CharacterMarker>();
-                    var other_character_team = other_character_marker.meta.GetComponent<Team>().value;
-                    
-                    if (instigator_team == other_character_team) continue;
-                    
-                    var other_character_tr = other_character.GetComponent<ObjectRef<Transform>>().Target;
+                    var other_marker = other_character.GetComponent<CharacterMarker>();
+                    var other_meta = other_marker.meta;
 
-                    var direction = (instigator_pos - other_character_tr.position);
+                    if (other_meta.GetComponent<CharacterState>().value == ECharacterState.Die) continue;
+                    if (instigator_team == other_meta.GetComponent<Team>().value) continue;
+                    
+                    var other_tr = other_character.GetComponent<ObjectRef<Transform>>().Target;
+                    var direction = (instigator_pos - other_tr.position);
                     float distance = direction.sqrMagnitude;
                     
-                    if (distance < nearest_distance)
-                    {
-                        nearest_distance = distance;
-                        instigator_target.entity = other_character;
-                    }
+                    if (distance > nearest_distance) continue;
+                    
+                    nearest_distance = distance;
+                    instigator_target.entity = other_character;
                 }
 
                 request.State = (instigator_target.entity != null) 

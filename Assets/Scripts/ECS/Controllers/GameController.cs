@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using UniversalEntities;
 
 namespace Scorewarrior.ECS
@@ -10,6 +9,10 @@ namespace Scorewarrior.ECS
         
         readonly Pipeline m_pipeline;
 
+        int m_waiters;
+
+        public bool IsNeedWait => (m_waiters > 0);
+        
         public GameController()
         {
             DIContainer.TryGet(out m_pipeline);
@@ -17,9 +20,20 @@ namespace Scorewarrior.ECS
 
         public void Bootstrap()
         {
-            SwitchGameState(EGameState.Initiated, true);
+            GameState = EGameState.Initiated;
+            m_pipeline.Trigger<GameStateChanged>().value = EGameState.Initiated;
         }
 
+        public void AddWaiter()
+        {
+            m_waiters++;
+        }
+        
+        public void FreeWaiter()
+        {
+            m_waiters--;
+        }
+        
         public void PrepareToStartGame()
         {
             if (GameState != EGameState.Initiated)
@@ -40,20 +54,26 @@ namespace Scorewarrior.ECS
             SwitchGameState(EGameState.Started);
         }
         
+        public void FinishGame()
+        {
+            if (GameState != EGameState.Started)
+            {
+                throw new Exception("Game has been stopped");
+            }
+            
+            SwitchGameState(EGameState.Finished);
+        }
+        
         public void RestartGame()
         {
             SwitchGameState(EGameState.Initiated);
         }
         
-        
-        private void SwitchGameState(EGameState newState, bool force = false)
+        private void SwitchGameState(EGameState newState)
         {
-            if (GameState == newState && !force) return;
+            if (GameState == newState) return;
             GameState = newState;
             m_pipeline.Trigger<GameStateChanged>().value = newState;
         }
-
-        
-        
     };
 }

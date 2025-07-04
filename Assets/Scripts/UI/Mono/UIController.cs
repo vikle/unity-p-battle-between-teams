@@ -15,8 +15,8 @@ namespace Scorewarrior.UI
         
         void Awake()
         {
-            m_gameController = DIContainer.Resolve<ECS.GameController>();
-            m_model = DIContainer.Resolve<UIControllerModel>();
+            DIContainer.Resolve(out m_gameController);
+            DIContainer.Resolve(out m_model);
 
             m_model.onGameStateChanged = OnGameStateChanged;
 
@@ -34,8 +34,8 @@ namespace Scorewarrior.UI
         private void OnGameStateChanged(EGameState newState)
         {
             _continueBtn.SetActive(newState == EGameState.Initiated);
-            _replayBtn.SetActive(newState == EGameState.Finished);
             _uiHud.gameObject.SetActive(newState == EGameState.Started);
+            _replayBtn.SetActive(newState == EGameState.Finished);
         }
 
         private void OnCharacterSpawned(ICharacter character)

@@ -21,7 +21,7 @@ namespace Scorewarrior.ECS
         [Preserve]public UIControllerUpdateSystem(Pipeline pipeline)
         {
             m_gameStateChangedFilter = pipeline.Query.With<GameStateChanged>().Build();
-            m_model = DIContainer.Resolve<UIControllerModel>();
+            DIContainer.Resolve(out m_model);
         }
         
         public void OnUpdate(Pipeline pipeline)

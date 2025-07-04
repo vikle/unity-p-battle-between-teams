@@ -25,7 +25,7 @@ namespace Scorewarrior.ECS
             m_characterSpawnedFilter = pipeline.Query.With<CharacterSpawned>().Build();
             m_takeDamageFilter = pipeline.Query.With<TakeDamageCommand>().Build();
             m_characterDiedFilter = pipeline.Query.With<CharacterDied>().Build();
-            m_model = DIContainer.Resolve<UIHudModel>();
+            DIContainer.Resolve(out m_model);
         }
 
         public void OnUpdate(Pipeline pipeline)

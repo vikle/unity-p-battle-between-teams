@@ -38,7 +38,7 @@ namespace Scorewarrior.ECS
                 }
 
                 ref float target_armor = ref target_meta.GetComponent<Armor>().value;
-                ref float target_health = ref target_meta.GetComponent<Armor>().value;
+                ref float target_health = ref target_meta.GetComponent<Health>().value;
                 
                 if (target_armor > 0f)
                 {
@@ -48,16 +48,16 @@ namespace Scorewarrior.ECS
                     {
                         target_health += target_armor;
                     }
-                }
-                else if (target_health > 0f)
-                {
-                    target_health -= cmd.damage;
-                }
-                else
-                {
-                    target_state = ECharacterState.Die;
-                    pipeline.Trigger<CharacterDied>().character = cmd.target;
-                }
+                    
+                    continue;
+                } 
+                
+                target_health -= cmd.damage;
+                
+                if (target_health > 0f) continue;
+                
+                target_state = ECharacterState.Die;
+                pipeline.Trigger<CharacterDied>().character = cmd.target;
             }
         }
     };
