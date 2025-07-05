@@ -30,11 +30,13 @@ namespace Scorewarrior.ECS
             var modifiers = entity.GetComponent<WeaponMarker>().modifiers;
             var provider = entity.GetComponent<ObjectRef<WeaponDescriptorProvider>>().Target;
 
-            modifiers.AddComponent<Damage>().value = 1f;
-            modifiers.AddComponent<Accuracy>().value = 1f;
-            modifiers.AddComponent<FireRate>().value = 1f;
-            modifiers.AddComponent<ClipSize>().value = 100u;
-            modifiers.AddComponent<ReloadTime>().value = 1f;
+            const float k_default_value = 1f;
+            
+            modifiers.AddComponent<Damage>().value = k_default_value;
+            modifiers.AddComponent<Accuracy>().value = k_default_value;
+            modifiers.AddComponent<FireRate>().value = k_default_value;
+            modifiers.AddComponent<ClipSize>().value = (uint)(k_default_value * 100f);
+            modifiers.AddComponent<ReloadTime>().value = k_default_value;
 
             var available_modifiers = Enum.GetValues(typeof(EWeaponDescriptor)).Cast<EWeaponDescriptor>().ToList();
 

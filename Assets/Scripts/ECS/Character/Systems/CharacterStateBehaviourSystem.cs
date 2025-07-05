@@ -68,7 +68,7 @@ namespace Scorewarrior.ECS
                     case ECharacterState.Aiming: 
                         if (target_is_valid)
                         {
-                            if (next_aim_time <= TimeData.Time)
+                            if (next_aim_time < TimeData.Time)
                             {
                                 SwitchState(ECharacterState.TryShooting, ref state_value, character, pipeline);
                             }
@@ -91,7 +91,7 @@ namespace Scorewarrior.ECS
                             {
                                 float last_fire_time = weapon_meta.GetComponent<FireRate>().value;
                                 
-                                if (last_fire_time <= TimeData.Time)
+                                if (last_fire_time < TimeData.Time)
                                 {
                                     var cmd = pipeline.Trigger<WeaponFireCommand>();
                                     cmd.weapon = weapon;
@@ -118,7 +118,7 @@ namespace Scorewarrior.ECS
                         break;
                     
                     case ECharacterState.Reloading:
-                        if (next_aim_time <= TimeData.Time)
+                        if (next_aim_time < TimeData.Time)
                         {
                             var next_state = target_is_valid 
                                 ? ECharacterState.TryShooting 

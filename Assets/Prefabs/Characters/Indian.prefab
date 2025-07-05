@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8997954803010550682}
   - component: {fileID: 1781731726860185676}
   - component: {fileID: 7543848969831141692}
+  - component: {fileID: -4863259867172447251}
   m_Layer: 8
   m_Name: Indian
   m_TagString: Untagged
@@ -155,6 +156,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62cd1326c37493185846e0aeb914ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8106324397151360445}
+  descriptor: {fileID: 7659365502223985779}
+  provider: {fileID: -1618476015717077173}
+--- !u!114 &-4863259867172447251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19389303171958164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f7a58b4aed4ed5b6391ea5d00f05c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptor: {fileID: -7114489356249657658}
 --- !u!1 &996534620904583509
 GameObject:
   m_ObjectHideFlags: 0

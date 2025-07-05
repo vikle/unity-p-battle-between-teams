@@ -1,10 +1,11 @@
-﻿using Scorewarrior.ECS;
-using UnityEngine;
-using Scorewarrior.Test.Models;
+﻿using UnityEngine;
 using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
+    using Test.Models;
+    using ECS;
+    
     public sealed class UIHud : MonoBehaviour
     {
         [SerializeField]UIHudPanel[] _uiHudPanels;

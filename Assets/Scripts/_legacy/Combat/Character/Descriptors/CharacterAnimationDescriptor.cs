@@ -1,5 +1,4 @@
-﻿using Scorewarrior.Test.Models;
-using Scorewarrior.Test.Services;
+﻿using Scorewarrior.Test.Services;
 using Scorewarrior.Test.Views;
 using UnityEngine;
 
@@ -9,17 +8,17 @@ namespace Scorewarrior.Test.Descriptors
     public sealed class CharacterAnimationDescriptor : CachedMonoBehaviour
     {
         [Space]
-        [SerializeField]Animator _animator;
+        public Animator _animator;
 
         [Header("Parameters Names")]
-        [SerializeField]string _aimingName = "aiming";
-        [SerializeField]string _reloadingName = "reloading";
-        [SerializeField]string _shootName = "shoot";
-        [SerializeField]string _reloadTimeName = "reload_time";
-        [SerializeField]string _dieName = "die";
+        public string _aimingName = "aiming";
+        public string _reloadingName = "reloading";
+        public string _shootName = "shoot";
+        public string _reloadTimeName = "reload_time";
+        public string _dieName = "die";
 
         [Header("Settings")]
-        [SerializeField]float _reloadAnimationLength = 3.3f;
+        public float _reloadAnimationLength = 3.3f;
         
         int _aimingHash;
         int _reloadingHash;
@@ -53,11 +52,11 @@ namespace Scorewarrior.Test.Descriptors
         
         private void InitAnimations()
         {
-            TryGetAnimationHash(_aimingName, out _aimingHash, out _aimingIsValid);
-            TryGetAnimationHash(_reloadingName, out _reloadingHash, out _reloadingIsValid);
-            TryGetAnimationHash(_shootName, out _shootHash, out _shootIsValid);
-            TryGetAnimationHash(_reloadTimeName, out _reloadTimeHash, out _reloadTimeIsValid);
-            TryGetAnimationHash(_dieName, out _dieHash, out _dieIsValid);
+            AnimationHashTool.Get(_aimingName, out _aimingHash, out _aimingIsValid);
+            AnimationHashTool.Get(_reloadingName, out _reloadingHash, out _reloadingIsValid);
+            AnimationHashTool.Get(_shootName, out _shootHash, out _shootIsValid);
+            AnimationHashTool.Get(_reloadTimeName, out _reloadTimeHash, out _reloadTimeIsValid);
+            AnimationHashTool.Get(_dieName, out _dieHash, out _dieIsValid);
         }
 
         public override void OnUpdate(float deltaTime)
@@ -92,8 +91,8 @@ namespace Scorewarrior.Test.Descriptors
                 case ECharacterState.Reloading: 
                     if (_reloadTimeIsValid)
                     {
-                        float reloadTime = _characterPrefab.Weapon.Descriptor.ReloadTime;
-                        _animator.SetFloat(_reloadTimeHash, reloadTime / _reloadAnimationLength);
+                        float reload_time = _characterPrefab.Weapon.Descriptor.ReloadTime;
+                        _animator.SetFloat(_reloadTimeHash, reload_time / _reloadAnimationLength);
                     }
                     break;
                 case ECharacterState.Die: 
@@ -104,18 +103,6 @@ namespace Scorewarrior.Test.Descriptors
                     break;
                 default: break;
             }
-        }
-
-        private static void TryGetAnimationHash(string animName, out int animHash, out bool isValid)
-        {
-            if (string.IsNullOrEmpty(animName))
-            {
-                isValid = false;
-                animHash = 0;
-            }
-
-            isValid = true;
-            animHash = Animator.StringToHash(animName);
         }
     }
 }

@@ -30,11 +30,13 @@ namespace Scorewarrior.ECS
             var modifiers = entity.GetComponent<CharacterMarker>().modifiers;
             var provider = entity.GetComponent<ObjectRef<CharacterDescriptorProvider>>().Target;
 
-            modifiers.AddComponent<Accuracy>().value = 1f;
-            modifiers.AddComponent<Dexterity>().value = 1f;
-            modifiers.AddComponent<Health>().value = 1f;
-            modifiers.AddComponent<Armor>().value = 1f;
-            modifiers.AddComponent<AimTime>().value = 1f;
+            const float k_default_value = 1f;
+            
+            modifiers.AddComponent<Accuracy>().value = k_default_value;
+            modifiers.AddComponent<Dexterity>().value = k_default_value;
+            modifiers.AddComponent<Health>().value = k_default_value;
+            modifiers.AddComponent<Armor>().value = k_default_value;
+            modifiers.AddComponent<AimTime>().value = k_default_value;
 
             var available_modifiers = Enum.GetValues(typeof(ECharacterDescriptor)).Cast<ECharacterDescriptor>().ToList();
             

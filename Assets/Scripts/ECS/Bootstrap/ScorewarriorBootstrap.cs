@@ -9,25 +9,6 @@ namespace Scorewarrior.ECS
             DIContainer.Register(pipeline);
             
             pipeline
-                .BindSystem<GameStateInitializeSystem>()
-                .BindSystem<GameStateStartingSystem>()
-                .BindSystem<SpawnCharacterSystem>()
-                .BindSystem<SpawnCharacterWeaponSystem>()
-                
-                .BindSystem<CharacterStateBehaviourSystem>()
-                .BindSystem<WeaponFireSystem>()
-                .BindSystem<WeaponReloadSystem>()
-                .BindSystem<ProjectileSpawnSystem>()
-                .BindSystem<ProjectileMoveSystem>()
-                .BindSystem<ProjectileHitSystem>()
-                
-                .BindSystem<TakeDamageSystem>()
-                .BindSystem<CharacterDiedHandleSystem>()
-                
-                .BindSystem<FindNearestEnemyRequestHandleSystem>()
-                ;
-            
-            pipeline
                 .BindSystem<CharacterAddModifiersSystem>()
                 .BindSystem<CharacterAddStatsSystem>()
                 .BindSystem<CharacterAddMetaSystem>()
@@ -37,17 +18,50 @@ namespace Scorewarrior.ECS
                 .BindSystem<ProjectileAddStatsSystem>()
                 .BindSystem<ProjectileAddMetaSystem>()
                 ;
-
+            
+            pipeline
+                .BindSystem<CharacterAnimationAddMetaSystem>()
+                ; 
+            
+            pipeline
+                .BindSystem<GameStateInitializeSystem>()
+                .BindSystem<GameStateStartingSystem>()
+                .BindSystem<SpawnCharacterSystem>()
+                .BindSystem<SpawnCharacterWeaponSystem>()
+                .BindSystem<CharacterStateBehaviourSystem>()
+                .BindSystem<WeaponFireSystem>()
+                .BindSystem<WeaponReloadSystem>()
+                .BindSystem<ProjectileSpawnSystem>()
+                .BindSystem<ProjectileMoveSystem>()
+                .BindSystem<ProjectileHitSystem>()
+                .BindSystem<TakeDamageSystem>()
+                .BindSystem<CharacterDiedHandleSystem>()
+                .BindSystem<FindNearestEnemyRequestHandleSystem>()
+                ;
+            
+            pipeline
+                .BindSystem<CharacterAnimationBehaviourSystem>()
+                ; 
+            
             pipeline
                 .BindSystem<UIControllerUpdateSystem>()
                 .BindSystem<UIHudUpdateSystem>()
                 ;
             
+            BindPromises(pipeline);
+            BindEvents(pipeline);
+        }
+
+        private static void BindPromises(Pipeline pipeline)
+        {
             pipeline
                 .BindPromise<FindNearestEnemyRequest>()
                 .BindPromise<SpawnCharacterRequest>()
                 ;
-
+        }
+        
+        private static void BindEvents(Pipeline pipeline)
+        {
             pipeline
                 .BindEvent<GameStateChanged>()
                 .BindEvent<CharacterSpawned>()
@@ -59,7 +73,7 @@ namespace Scorewarrior.ECS
                 .BindEvent<TakeDamageCommand>()
                 ;
         }
-
+        
         void Start()
         {
             DIContainer.Resolve<GameController>().Bootstrap();

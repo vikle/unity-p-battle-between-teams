@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 15
   Accuracy: 0.95
-  FireRate: 0.1
+  FireRate: 1.1
   ClipSize: 5
   ReloadTime: 6
 --- !u!114 &-1171527620932908372

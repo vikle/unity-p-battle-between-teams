@@ -1,12 +1,12 @@
-﻿using System;
-using Scorewarrior.ECS;
-using Scorewarrior.Test.Models;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
+    using ECS;
+    using Test.Models;
+    
     [RequireComponent(typeof(CanvasGroup))]
     public sealed class UIHudIcon : MonoBehaviour
     {

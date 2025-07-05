@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1067480281662940238}
   - component: {fileID: 5261526845842917820}
   - component: {fileID: -6708124974777441387}
+  - component: {fileID: 8160329506759495917}
   m_Layer: 8
   m_Name: Engineer
   m_TagString: Untagged
@@ -155,6 +156,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62cd1326c37493185846e0aeb914ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 7873495124653106676}
+  descriptor: {fileID: 1091872874136495737}
+  provider: {fileID: -5077764880913140907}
+--- !u!114 &8160329506759495917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19389303171958164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f7a58b4aed4ed5b6391ea5d00f05c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptor: {fileID: 1964350377759108202}
 --- !u!1 &3617468093356947202
 GameObject:
   m_ObjectHideFlags: 0

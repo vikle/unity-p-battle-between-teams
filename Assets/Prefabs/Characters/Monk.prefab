@@ -1092,6 +1092,7 @@ GameObject:
   - component: {fileID: 7726903555141024421}
   - component: {fileID: -8368138158788828458}
   - component: {fileID: 6459922603218219816}
+  - component: {fileID: -4293449618466779432}
   m_Layer: 8
   m_Name: Monk
   m_TagString: Untagged
@@ -1231,6 +1232,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62cd1326c37493185846e0aeb914ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1552500931476317857}
+  descriptor: {fileID: 3875004563385990025}
+  provider: {fileID: 8595660276709468656}
+--- !u!114 &-4293449618466779432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605363530439632902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f7a58b4aed4ed5b6391ea5d00f05c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptor: {fileID: -2417824325574319168}
 --- !u!1 &9136827948821724094
 GameObject:
   m_ObjectHideFlags: 0

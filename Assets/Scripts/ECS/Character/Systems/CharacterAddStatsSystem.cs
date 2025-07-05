@@ -30,11 +30,20 @@ namespace Scorewarrior.ECS
             
             var descriptor = entity.GetComponent<ObjectRef<CharacterDescriptor>>().Target;
             
-            stats.AddComponent<Accuracy>().value = (descriptor.Accuracy * modifiers.GetComponent<Accuracy>().value);
-            stats.AddComponent<Dexterity>().value = (descriptor.Dexterity * modifiers.GetComponent<Dexterity>().value);
-            stats.AddComponent<Health>().value = (descriptor.MaxHealth * modifiers.GetComponent<Health>().value);
-            stats.AddComponent<Armor>().value = (descriptor.MaxArmor * modifiers.GetComponent<Armor>().value);
-            stats.AddComponent<AimTime>().value = (descriptor.AimTime * modifiers.GetComponent<AimTime>().value);
+            stats.AddComponent<Accuracy>()
+                 .value = (descriptor.Accuracy * modifiers.GetComponent<Accuracy>().value);
+            
+            stats.AddComponent<Dexterity>()
+                 .value = (descriptor.Dexterity * modifiers.GetComponent<Dexterity>().value);
+            
+            stats.AddComponent<Health>()
+                 .value = (descriptor.MaxHealth * modifiers.GetComponent<Health>().value);
+            
+            stats.AddComponent<Armor>()
+                 .value = (descriptor.MaxArmor * modifiers.GetComponent<Armor>().value);
+            
+            stats.AddComponent<AimTime>()
+                 .value = (descriptor.AimTime * modifiers.GetComponent<AimTime>().value);
         }
     };
 }

@@ -33,6 +33,24 @@ namespace Scorewarrior.ECS
         public Transform transform;
     };
     
+    public sealed class CharacterAnimationHash : IComponent
+    {
+        public int aiming;
+        public int reloading;
+        public int shoot;
+        public int reloadTime;
+        public int die;
+    };
+    
+    public sealed class CharacterAnimationHashValidation : IComponent
+    {
+        public bool aiming;
+        public bool reloading;
+        public bool shoot;
+        public bool reloadTime;
+        public bool die;
+    };
+    
     public sealed class ProjectileTarget : IComponent
     {
         public Entity entity;

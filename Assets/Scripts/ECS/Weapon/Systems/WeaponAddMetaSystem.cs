@@ -23,11 +23,12 @@ namespace Scorewarrior.ECS
             }
 
             var marker = entity.GetComponent<WeaponMarker>();
-            var meta = marker.meta;
-            var stats = marker.stats;
 
-            meta.AddComponent<FireRate>().value = stats.GetComponent<FireRate>().value;
-            meta.AddComponent<ClipSize>().value = stats.GetComponent<ClipSize>().value;
+            marker.meta.AddComponent<FireRate>()
+                  .value = 0f;
+            
+            marker.meta.AddComponent<ClipSize>()
+                  .value = marker.stats.GetComponent<ClipSize>().value;
         }
     };
 }

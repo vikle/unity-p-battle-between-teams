@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Scorewarrior.Test.Models;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
+    using Test.Models;
+    
     public sealed class UIHudPanel : MonoBehaviour
     {
         [SerializeField]UIHudIcon _uiHudIcon;
