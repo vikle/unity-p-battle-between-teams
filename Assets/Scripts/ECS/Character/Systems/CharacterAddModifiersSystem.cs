@@ -38,7 +38,7 @@ namespace Scorewarrior.ECS
             modifiers.AddComponent<Armor>().value = k_default_value;
             modifiers.AddComponent<AimTime>().value = k_default_value;
 
-            var available_modifiers = Enum.GetValues(typeof(ECharacterDescriptor)).Cast<ECharacterDescriptor>().ToList();
+            var available_modifiers = Enum.GetValues(typeof(ECharacterStat)).Cast<ECharacterStat>().ToList();
             
             for (int i = 0, i_max = provider.modifiersCount; i < i_max; i++)
             {
@@ -47,11 +47,11 @@ namespace Scorewarrior.ECS
                 
                 switch (available_modifiers[modifier_index])
                 {
-                    case ECharacterDescriptor.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
-                    case ECharacterDescriptor.Dexterity: modifiers.GetComponent<Dexterity>().value = value; break;
-                    case ECharacterDescriptor.MaxHealth: modifiers.GetComponent<Health>().value = value; break;
-                    case ECharacterDescriptor.MaxArmor: modifiers.GetComponent<Armor>().value = value; break;
-                    case ECharacterDescriptor.AimTime: modifiers.GetComponent<AimTime>().value = value; break;
+                    case ECharacterStat.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
+                    case ECharacterStat.Dexterity: modifiers.GetComponent<Dexterity>().value = value; break;
+                    case ECharacterStat.MaxHealth: modifiers.GetComponent<Health>().value = value; break;
+                    case ECharacterStat.MaxArmor: modifiers.GetComponent<Armor>().value = value; break;
+                    case ECharacterStat.AimTime: modifiers.GetComponent<AimTime>().value = value; break;
                     default: break;
                 }
                 

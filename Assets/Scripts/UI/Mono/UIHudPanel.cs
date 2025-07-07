@@ -4,8 +4,6 @@ using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
-    using Test.Models;
-    
     public sealed class UIHudPanel : MonoBehaviour
     {
         [SerializeField]UIHudIcon _uiHudIcon;
@@ -18,7 +16,7 @@ namespace Scorewarrior.UI
         void Awake()
         {
             _uiHudIcon.gameObject.SetActive(false);
-            
+
             foreach (uint sector in _sectors)
             {
                 var icon = Instantiate(_uiHudIcon, transform);
@@ -28,24 +26,12 @@ namespace Scorewarrior.UI
                 icon.SetHealthBarColor(_healthBarsColor);
             }
         }
-        
+
         public bool IsCompatibleTeam(ETeam characterTeam)
         {
             return (characterTeam == _team);
         }
 
-        public bool TryAttachCharacter(ICharacter character)
-        {
-            foreach (var icon in _preparedIcons)
-            {
-                if (!icon.IsCompatibleSector(character.Sector)) continue;
-                icon.AttachCharacter(character);
-                return true;
-            }
-            
-            return false;
-        }
-        
         public bool TryAttachCharacter(Entity characterEntity, uint sector)
         {
             foreach (var icon in _preparedIcons)
@@ -54,10 +40,10 @@ namespace Scorewarrior.UI
                 icon.AttachCharacter(characterEntity);
                 return true;
             }
-            
+
             return false;
         }
-        
+
         public void OnCharacterDamageTaken(Entity characterEntity)
         {
             foreach (var icon in _preparedIcons)
@@ -65,7 +51,7 @@ namespace Scorewarrior.UI
                 icon.TryUpdateBars(characterEntity);
             }
         }
-        
+
         public void OnCharacterDie(Entity characterEntity)
         {
             foreach (var icon in _preparedIcons)
@@ -73,5 +59,5 @@ namespace Scorewarrior.UI
                 icon.TryDispose(characterEntity);
             }
         }
-    }
+    };
 }

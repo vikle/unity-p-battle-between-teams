@@ -3,8 +3,6 @@ using UniversalEntities;
 
 namespace Scorewarrior.ECS
 {
-    using Test.Views;
-    
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ProjectilePrefab))]
     public sealed class ProjectileBaker : EntityActorBaker

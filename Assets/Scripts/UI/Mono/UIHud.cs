@@ -3,15 +3,14 @@ using UniversalEntities;
 
 namespace Scorewarrior.UI
 {
-    using Test.Models;
     using ECS;
-    
+
     public sealed class UIHud : MonoBehaviour
     {
         [SerializeField]UIHudPanel[] _uiHudPanels;
 
         UIHudModel m_model;
-        
+
         void Awake()
         {
             DIContainer.Resolve(out m_model);
@@ -30,16 +29,6 @@ namespace Scorewarrior.UI
             _uiHudPanels = GetComponentsInChildren<UIHudPanel>();
         }
 
-        public void AttachCharacter(ICharacter character)
-        {
-            foreach (var panel in _uiHudPanels)
-            {
-                if (!panel.IsCompatibleTeam(character.Team)) continue;
-                if (!panel.TryAttachCharacter(character)) continue;
-                break;
-            }
-        }
-
         private void OnCharacterDamageTaken(Entity characterEntity)
         {
             foreach (var panel in _uiHudPanels)
@@ -47,7 +36,7 @@ namespace Scorewarrior.UI
                 panel.OnCharacterDamageTaken(characterEntity);
             }
         }
-        
+
         private void OnCharacterDie(Entity characterEntity)
         {
             foreach (var panel in _uiHudPanels)
@@ -59,7 +48,7 @@ namespace Scorewarrior.UI
         private void OnCharacterSpawned(Entity characterEntity)
         {
             GetTeamAndSector(characterEntity, out var team, out uint sector);
-            
+
             foreach (var panel in _uiHudPanels)
             {
                 if (!panel.IsCompatibleTeam(team)) continue;
@@ -68,13 +57,11 @@ namespace Scorewarrior.UI
             }
         }
 
-        private static void GetTeamAndSector(Entity characterEntity, 
-                                             out ETeam team, 
-                                             out uint sector)
+        private static void GetTeamAndSector(Entity characterEntity, out ETeam team, out uint sector)
         {
             var marker = characterEntity.GetComponent<CharacterMarker>();
             team = marker.meta.GetComponent<Team>().value;
             sector = marker.meta.GetComponent<Sector>().value;
         }
-    }
+    };
 }

@@ -3,7 +3,7 @@ using UniversalEntities;
 
 namespace Scorewarrior.ECS
 {
-    using Test.Descriptors;
+    using Descriptors;
     
     [DisallowMultipleComponent]
     [RequireComponent(typeof(CharacterAnimationDescriptor))]

@@ -38,7 +38,7 @@ namespace Scorewarrior.ECS
             modifiers.AddComponent<ClipSize>().value = (uint)(k_default_value * 100f);
             modifiers.AddComponent<ReloadTime>().value = k_default_value;
 
-            var available_modifiers = Enum.GetValues(typeof(EWeaponDescriptor)).Cast<EWeaponDescriptor>().ToList();
+            var available_modifiers = Enum.GetValues(typeof(EWeaponStat)).Cast<EWeaponStat>().ToList();
 
             for (int i = 0, i_max = provider.modifiersCount; i < i_max; i++)
             {
@@ -47,11 +47,11 @@ namespace Scorewarrior.ECS
                 
                 switch (available_modifiers[modifier_index])
                 {
-                    case EWeaponDescriptor.Damage: modifiers.GetComponent<Damage>().value = value; break;
-                    case EWeaponDescriptor.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
-                    case EWeaponDescriptor.FireRate: modifiers.GetComponent<FireRate>().value = value; break;
-                    case EWeaponDescriptor.ClipSize: modifiers.GetComponent<ClipSize>().value = (uint)(value * 100f); break;
-                    case EWeaponDescriptor.ReloadTime: modifiers.GetComponent<ReloadTime>().value = value; break;
+                    case EWeaponStat.Damage: modifiers.GetComponent<Damage>().value = value; break;
+                    case EWeaponStat.Accuracy: modifiers.GetComponent<Accuracy>().value = value; break;
+                    case EWeaponStat.FireRate: modifiers.GetComponent<FireRate>().value = value; break;
+                    case EWeaponStat.ClipSize: modifiers.GetComponent<ClipSize>().value = (uint)(value * 100f); break;
+                    case EWeaponStat.ReloadTime: modifiers.GetComponent<ReloadTime>().value = value; break;
                     default: break;
                 }
                 

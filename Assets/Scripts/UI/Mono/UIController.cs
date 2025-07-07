@@ -3,7 +3,7 @@
 namespace Scorewarrior.UI
 {
     using ECS;
-    
+
     public sealed class UIController : MonoBehaviour
     {
         [SerializeField]GameObject _continueBtn;
@@ -11,8 +11,8 @@ namespace Scorewarrior.UI
         [SerializeField]UIHud _uiHud;
 
         GameController m_gameController;
-        UIControllerModel  m_model;
-        
+        UIControllerModel m_model;
+
         void Awake()
         {
             DIContainer.Resolve(out m_gameController);
@@ -32,15 +32,15 @@ namespace Scorewarrior.UI
             _uiHud.gameObject.SetActive(newState == EGameState.Started);
             _replayBtn.SetActive(newState == EGameState.Finished);
         }
-        
+
         public void OnContinueClick()
         {
             m_gameController.PrepareToStartGame();
         }
-        
+
         public void OnReplayClick()
         {
             m_gameController.RestartGame();
         }
-    }
+    };
 }

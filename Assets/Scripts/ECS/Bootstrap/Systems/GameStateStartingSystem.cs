@@ -76,6 +76,5 @@ namespace Scorewarrior.ECS
                 break;
             }
         }
-        
     };
 }

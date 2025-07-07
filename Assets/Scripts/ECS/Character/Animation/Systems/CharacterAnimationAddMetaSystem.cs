@@ -7,7 +7,7 @@ using Unity.IL2CPP.CompilerServices;
 
 namespace Scorewarrior.ECS
 {
-    using Test.Descriptors;
+    using Descriptors;
     
 #if ENABLE_IL2CPP
     [Il2CppSetOption(Option.NullChecks, false)]
