@@ -36,6 +36,8 @@ namespace Scorewarrior.ECS
                 {
                     continue;
                 }
+                
+                pipeline.Trigger<CharacterDamageTaken>().character = cmd.target;
 
                 ref float target_armor = ref target_meta.GetComponent<Armor>().value;
                 ref float target_health = ref target_meta.GetComponent<Health>().value;
@@ -58,6 +60,10 @@ namespace Scorewarrior.ECS
                 
                 target_state = ECharacterState.Die;
                 pipeline.Trigger<CharacterDied>().character = cmd.target;
+                
+                var state_ch_evt = pipeline.Trigger<CharacterStateChanged>();
+                state_ch_evt.character = cmd.target;
+                state_ch_evt.state = target_state;
             }
         }
     };

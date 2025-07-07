@@ -16,14 +16,14 @@ namespace Scorewarrior.ECS
     public sealed class UIHudUpdateSystem : IUpdateSystem
     {
         readonly Filter m_characterSpawnedFilter;
-        readonly Filter m_takeDamageFilter;
+        readonly Filter m_characterDamageTakenFilter;
         readonly Filter m_characterDiedFilter;
         readonly UIHudModel m_model;
         
         [Preserve]public UIHudUpdateSystem(Pipeline pipeline)
         {
             m_characterSpawnedFilter = pipeline.Query.With<CharacterSpawned>().Build();
-            m_takeDamageFilter = pipeline.Query.With<TakeDamageCommand>().Build();
+            m_characterDamageTakenFilter = pipeline.Query.With<CharacterDamageTaken>().Build();
             m_characterDiedFilter = pipeline.Query.With<CharacterDied>().Build();
             DIContainer.Resolve(out m_model);
         }
@@ -48,11 +48,11 @@ namespace Scorewarrior.ECS
         
         private void TakeCharactersDamage_Process()
         {
-            if (m_takeDamageFilter.IsEmpty) return;
+            if (m_characterDamageTakenFilter.IsEmpty) return;
             
-            foreach (var evt_entity in m_takeDamageFilter)
+            foreach (var evt_entity in m_characterDamageTakenFilter)
             {
-                var character = evt_entity.GetComponent<TakeDamageCommand>().target;
+                var character = evt_entity.GetComponent<CharacterDamageTaken>().character;
                 m_model.Call_OnCharacterDamageTaken(character);
             }
         }

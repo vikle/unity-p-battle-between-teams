@@ -28,9 +28,9 @@ namespace Scorewarrior.ECS
         {
             if (m_gameStateChangedFilter.IsEmpty) return;
 
-            foreach (var game_state_entity in m_gameStateChangedFilter)
+            foreach (var evt_entity in m_gameStateChangedFilter)
             {
-                var game_state = game_state_entity.GetComponent<GameStateChanged>().value;
+                var game_state = evt_entity.GetComponent<GameStateChanged>().value;
                 m_model.Call_OnGameStateChanged(game_state);
             }
         }

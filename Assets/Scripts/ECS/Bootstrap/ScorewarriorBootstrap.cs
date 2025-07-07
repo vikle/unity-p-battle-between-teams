@@ -48,6 +48,10 @@ namespace Scorewarrior.ECS
                 .BindSystem<UIHudUpdateSystem>()
                 ;
             
+            pipeline
+                .BindSystem<DebugGame.DebugInspectorUpdateSystem>()
+                ; 
+            
             BindPromises(pipeline);
             BindEvents(pipeline);
         }

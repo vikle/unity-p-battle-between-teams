@@ -25,9 +25,9 @@ namespace Scorewarrior.ECS
             var marker = entity.GetComponent<CharacterMarker>();
             var meta = marker.meta;
             var stats = marker.stats;
-            
-            meta.AddComponent<Team>();
-            meta.AddComponent<Sector>();
+
+            meta.AddComponent<Sector>().value = 0u;
+            meta.AddComponent<Team>().value = ETeam.None;
             meta.AddComponent<CharacterTarget>().entity = null;
             meta.AddComponent<CharacterWeapon>().entity = null;
             meta.AddComponent<CharacterHitBox>().transform = null;
