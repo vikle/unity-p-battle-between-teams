@@ -1,9 +1,8 @@
 {
   "dependencies": {
-    "com.unity.ai.navigation": "1.1.6",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.ugui": "1.0.0",
-    "com.vikle.universal-entities": "file:/Users/victor/_mGit/_mDev/Modules/UniversalEntities",
+    "com.vikle.universal-entities": "https://github.com/vikle/UniversalEntities.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
