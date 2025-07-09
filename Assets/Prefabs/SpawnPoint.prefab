@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7511236958076518824}
   - component: {fileID: 5917291000833135438}
+  - component: {fileID: 2742848762131381290}
+  - component: {fileID: 6469483155529334092}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -24,12 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2854179699418460823}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5917291000833135438
 MonoBehaviour:
@@ -44,3 +47,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  Sector: 0
+--- !u!114 &2742848762131381290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854179699418460823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddf2a40e69e6ec44b778f9bfc21fccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataComponent: 2
+--- !u!114 &6469483155529334092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854179699418460823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84faf74edf134b1ca412c6485f57c11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalObject: {fileID: 5917291000833135438}

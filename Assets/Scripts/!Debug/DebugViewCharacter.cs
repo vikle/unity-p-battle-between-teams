@@ -1,16 +1,18 @@
 ﻿using System;
-using Scorewarrior.Test.Models;
 using UnityEngine;
+using UniversalEntities;
 
-namespace Scorewarrior.Test._Debug
+namespace Scorewarrior.DebugGame
 {
     [Serializable]
     public sealed class DebugViewCharacter
     {
-        public ICharacter character;
-        public GameObject Instance;
-        public CharacterState State;
-        public Team Team;
-        public uint Sector;
+        public Entity character;
+        public GameObject instance;
+        public ECharacterState state;
+        public ETeam team;
+        public uint sector;
+        public int armor;
+        public int health;
     }
 }

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1221033313078591321}
   - component: {fileID: 8851538745328149916}
   - component: {fileID: -1625997371845544532}
-  - component: {fileID: -3723139644269344184}
   - component: {fileID: 7772884771999456011}
+  - component: {fileID: -4287191852389823500}
+  - component: {fileID: -7569487065277175960}
   m_Layer: 8
   m_Name: MonkWeapon
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221033313078591322}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.028}
   m_LocalScale: {x: 1.1616, y: 1.1616, z: 1.1616}
@@ -35,7 +37,6 @@ Transform:
   - {fileID: 7776800039188399206}
   - {fileID: 2890850013730141074}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8851538745328149916
 MonoBehaviour:
@@ -67,19 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _descriptor: {fileID: 8851538745328149916}
-  modifiers: []
---- !u!114 &-3723139644269344184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221033313078591322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c69ce5c657471380ffb84426de39ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   modificationRange: {x: 1, y: 2}
   modifiersCount: 2
 --- !u!114 &7772884771999456011
@@ -96,7 +84,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _descriptor: {fileID: -1625997371845544532}
   _barrelTransform: {fileID: 2890850013730141074}
-  _bulletPrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
+  projectilePrefab: {fileID: 8256470978176610155, guid: 9b7ee3ebe18995f44983326e18a9514e, type: 3}
+--- !u!114 &-4287191852389823500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221033313078591322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddf2a40e69e6ec44b778f9bfc21fccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataComponent: 1
+--- !u!114 &-7569487065277175960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221033313078591322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6b14a6b6654fa2a995ff058a295cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7772884771999456011}
+  descriptor: {fileID: 8851538745328149916}
+  provider: {fileID: -1625997371845544532}
 --- !u!1 &2852730555757880441
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,13 +136,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2852730555757880441}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0034, y: 0.0722, z: 0.641}
   m_LocalScale: {x: 0.86088157, y: 0.86088157, z: 0.86088157}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1221033313078591321}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7131204080873023117
 GameObject:
@@ -153,13 +169,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7131204080873023117}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0.004, y: -0.004, z: -0.012}
   m_LocalScale: {x: 0.16860646, y: 0.16860645, z: 0.16860646}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1221033313078591321}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
 --- !u!33 &2528124090844612000
 MeshFilter:

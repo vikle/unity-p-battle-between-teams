@@ -1,71 +1,91 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Scorewarrior.Test.Controllers;
-using Scorewarrior.Test.Models;
+using UniversalEntities;
 
-namespace Scorewarrior.Test._Debug
+namespace Scorewarrior.DebugGame
 {
+    using ECS;
+
     public sealed class DebugInspector : MonoBehaviour
     {
-        public int m_waiters;
-        public GameState m_state;
+        public EGameState m_state;
         public List<DebugViewCharacter> m_debugViewCharacters = new(8);
-        
-        static ICharacter _nonAllocCharacter;
-        
-        void Start()
+
+        DebugInspectorModel m_model;
+
+        void Awake()
         {
             m_debugViewCharacters.Clear();
-            GameController.OnGameStateChanged += OnGameStateChanged;
-            GameController.OnCharacterSpawned += OnCharacterSpawned;
-            GameController.OnCharacterStateChanged += OnCharacterStateChanged;
+            
+            DIContainer.Resolve(out m_model);
+            m_model.onGameStateChanged = OnGameStateChanged;
+            m_model.onCharacterSpawned = OnCharacterSpawned;
+            m_model.onCharacterStateChanged = OnCharacterStateChanged;
+            m_model.onCharacterDamageTaken = OnCharacterDamageTaken;
         }
 
-        void LateUpdate()
+        void OnDestroy()
         {
-            m_waiters = GameController.Waiters;
+            m_model.Dispose();
         }
 
-        private void OnGameStateChanged(GameState newState)
+        private void OnGameStateChanged(EGameState newState)
         {
             m_state = newState;
         }
-        
-        private void OnCharacterSpawned(ICharacter character)
-        {
-            _nonAllocCharacter = character;
 
-            int viewIndex = m_debugViewCharacters.FindIndex(v => v.character == _nonAllocCharacter);
-            
-            if (viewIndex > -1)
-            {
-                m_debugViewCharacters[viewIndex].Team = character.Team;
-                return;
-            }
-            
+        private void OnCharacterSpawned(Entity character)
+        {
+            int view_index = m_debugViewCharacters.FindIndexNonAlloc(character, (view, value) => view.character == value);
+
+            var meta = character.GetComponent<CharacterMarker>().meta;
+
             var view = new DebugViewCharacter
             {
                 character = character,
-                Instance = character.Prefab.GameObject,
-                Team = character.Team,
-                Sector = character.Sector
+                instance = character.GetComponent<ObjectRef<GameObject>>().Target,
+                state = meta.GetComponent<CharacterState>().value,
+                team = meta.GetComponent<Team>().value,
+                sector = meta.GetComponent<Sector>().value,
+                armor = (int)meta.GetComponent<Armor>().value,
+                health = (int)meta.GetComponent<Health>().value,
             };
-            
-            m_debugViewCharacters.Add(view);
-        }
-        
-        private void OnCharacterStateChanged(ICharacter character)
-        {
-            _nonAllocCharacter = character;
-            
-            int viewIndex = m_debugViewCharacters.FindIndex(v => v.character == _nonAllocCharacter);
-            
-            if (viewIndex < 0)
-            {
-                return;
-            }
 
-            m_debugViewCharacters[viewIndex].State = character.State;
+            if (view_index > -1)
+            {
+                m_debugViewCharacters[view_index] = view;
+            }
+            else
+            {
+                m_debugViewCharacters.Add(view);
+            }
         }
-    }
+
+        private void OnCharacterStateChanged(Entity character)
+        {
+            int view_index = m_debugViewCharacters.FindIndexNonAlloc(character, (view, value) => view.character == value);
+
+            if (view_index < 0) return;
+
+            var view = m_debugViewCharacters[view_index];
+
+            var meta = character.GetComponent<CharacterMarker>().meta;
+
+            view.state = meta.GetComponent<CharacterState>().value;
+        }
+
+        private void OnCharacterDamageTaken(Entity character)
+        {
+            int view_index = m_debugViewCharacters.FindIndexNonAlloc(character, (view, value) => view.character == value);
+
+            if (view_index < 0) return;
+            
+            var view = m_debugViewCharacters[view_index];
+            
+            var meta = character.GetComponent<CharacterMarker>().meta;
+            
+            view.armor = (int)meta.GetComponent<Armor>().value;
+            view.health = (int)meta.GetComponent<Health>().value;
+        }
+    };
 }
