@@ -46,7 +46,7 @@ namespace Scorewarrior.ECS
                     dmg_cmd.target = target.entity;
                 }
 
-                GameObjectPool.Return(entity);
+                pipeline.Trigger<ReturnToPoolCommand>().entity = entity;
             }
         }
     }

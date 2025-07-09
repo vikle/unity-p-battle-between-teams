@@ -33,7 +33,7 @@ namespace Scorewarrior.ECS
 
                 foreach (var character_entity in m_charactersFilter)
                 {
-                    GameObjectPool.Return(character_entity);
+                    pipeline.Trigger<ReturnToPoolCommand>().entity = character_entity;
                 }
                 
                 break;

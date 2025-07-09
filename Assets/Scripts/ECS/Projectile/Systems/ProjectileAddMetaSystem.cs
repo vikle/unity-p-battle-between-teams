@@ -29,6 +29,7 @@ namespace Scorewarrior.ECS
             meta.AddComponent<Damage>().value = 0f;
 
             var target = meta.AddComponent<ProjectileTarget>();
+            target.hit = false;
             target.entity = null;
             target.position = Vector3.zero;
             target.distance = 0f;

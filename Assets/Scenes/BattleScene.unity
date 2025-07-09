@@ -8094,7 +8094,7 @@ GameObject:
   - component: {fileID: 2102472473}
   - component: {fileID: 2102472472}
   m_Layer: 0
-  m_Name: DebugInspector
+  m_Name: _DebugInspector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8298,10 +8298,10 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2102472473}
   - {fileID: 1750658678}
   - {fileID: 171525667}
   - {fileID: 863106156}
-  - {fileID: 2102472473}
   - {fileID: 491894933}
   - {fileID: 92820950}
   - {fileID: 855324819}

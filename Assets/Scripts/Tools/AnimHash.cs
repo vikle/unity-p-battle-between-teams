@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Scorewarrior
 {
-    public static class AnimationHashTool
+    public static class AnimHash
     {
         public static void Get(string animName, out int animHash, out bool isValid)
         {

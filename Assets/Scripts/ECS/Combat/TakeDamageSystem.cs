@@ -27,8 +27,9 @@ namespace Scorewarrior.ECS
             foreach (var cmd_entity in m_filter)
             {
                 var cmd = cmd_entity.GetComponent<TakeDamageCommand>();
+                var target = cmd.target;
 
-                var target_meta = cmd.target.GetComponent<CharacterMarker>().meta;
+                var target_meta = target.GetComponent<CharacterMarker>().meta;
                 
                 ref var target_state = ref target_meta.GetComponent<CharacterState>().value;
 
@@ -37,7 +38,7 @@ namespace Scorewarrior.ECS
                     continue;
                 }
                 
-                pipeline.Trigger<CharacterDamageTaken>().character = cmd.target;
+                pipeline.Trigger<CharacterDamageTaken>().character = target;
 
                 ref float target_armor = ref target_meta.GetComponent<Armor>().value;
                 ref float target_health = ref target_meta.GetComponent<Health>().value;
@@ -59,10 +60,10 @@ namespace Scorewarrior.ECS
                 if (target_health > 0f) continue;
                 
                 target_state = ECharacterState.Die;
-                pipeline.Trigger<CharacterDied>().character = cmd.target;
+                pipeline.Trigger<CharacterDied>().character = target;
                 
                 var state_ch_evt = pipeline.Trigger<CharacterStateChanged>();
-                state_ch_evt.character = cmd.target;
+                state_ch_evt.character = target;
                 state_ch_evt.state = target_state;
             }
         }

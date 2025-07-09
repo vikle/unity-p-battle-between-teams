@@ -53,10 +53,10 @@ namespace Scorewarrior.ECS
     
     public sealed class ProjectileTarget : IComponent
     {
+        public bool hit;
         public Entity entity;
         public Vector3 position;
         public float distance;
-        public bool hit;
     };
     
     public sealed class ProjectileMoveMeta : IComponent

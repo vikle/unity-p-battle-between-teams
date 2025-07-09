@@ -52,8 +52,17 @@ namespace Scorewarrior.ECS
                 .BindSystem<DebugGame.DebugInspectorUpdateSystem>()
                 ; 
             
+            BindCollect(pipeline);
+            
             BindPromises(pipeline);
             BindEvents(pipeline);
+        }
+
+        private static void BindCollect(Pipeline pipeline)
+        {
+            pipeline
+                .BindSystem<ReturnToPoolHandleSystem>()
+                ; 
         }
 
         private static void BindPromises(Pipeline pipeline)
@@ -76,6 +85,10 @@ namespace Scorewarrior.ECS
                 .BindEvent<ProjectileSpawnCommand>()
                 .BindEvent<TakeDamageCommand>()
                 .BindEvent<CharacterDamageTaken>()
+                ;
+
+            pipeline
+                .BindEvent<ReturnToPoolCommand>()
                 ;
         }
         
