@@ -15,6 +15,7 @@ namespace Scorewarrior.ECS
     public sealed class CharacterAnimationBehaviourSystem : IUpdateSystem
     {
         readonly Filter m_charactersFilter;
+        readonly GameController m_gameController;
         
         [Preserve]public CharacterAnimationBehaviourSystem(Pipeline pipeline)
         {
@@ -22,10 +23,14 @@ namespace Scorewarrior.ECS
                                          .With<CharacterMarker>()
                                          .With<CharacterAnimationMarker>()
                                          .Build();
+            
+            DIContainer.Resolve(out m_gameController);
         }
 
         public void OnUpdate(Pipeline pipeline)
         {
+            if (m_gameController.GameState != EGameState.Started) return;
+            
             foreach (var character in m_charactersFilter)
             {
                 var chr_meta = character.GetComponent<CharacterMarker>().meta;

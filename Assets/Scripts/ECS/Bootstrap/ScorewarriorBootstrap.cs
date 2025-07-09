@@ -75,6 +75,7 @@ namespace Scorewarrior.ECS
                 .BindEvent<WeaponReloadCommand>()
                 .BindEvent<ProjectileSpawnCommand>()
                 .BindEvent<TakeDamageCommand>()
+                .BindEvent<CharacterDamageTaken>()
                 ;
         }
         

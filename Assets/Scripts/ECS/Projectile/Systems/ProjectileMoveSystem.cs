@@ -15,18 +15,21 @@ namespace Scorewarrior.ECS
     public sealed class ProjectileMoveSystem : IUpdateSystem
     {
         readonly Filter m_filter;
+        readonly GameController m_gameController;
 
         [Preserve]public ProjectileMoveSystem(Pipeline pipeline)
         {
             m_filter = pipeline.Query.With<ProjectileMarker>() .Build();
+            DIContainer.Resolve(out m_gameController);
         }
         
         public void OnUpdate(Pipeline pipeline)
         {
+            if (m_gameController.GameState != EGameState.Started) return;
+            
             foreach (var entity in m_filter)
             {
                 var marker = entity.GetComponent<ProjectileMarker>();
-
                 var move = marker.meta.GetComponent<ProjectileMoveMeta>();
 
                 float move_speed = marker.stats.GetComponent<Speed>().value;

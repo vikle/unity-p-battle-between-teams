@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8742815852631331184
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6d9d861e7e436ca4663ef4c305eb84, type: 3}
+  m_Name: ColorCorrectionVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  exposure:
+    m_OverrideState: 1
+    m_Value: {x: 1.3, y: 1.3, z: 1.3}
+  brightness:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0, z: 0}
+  linearMidPoint:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5, z: 0.5}
+  contrast:
+    m_OverrideState: 1
+    m_Value: {x: 1.025, y: 1.025, z: 1.025}
+  saturation:
+    m_OverrideState: 1
+    m_Value: {x: 1.2, y: 1.2, z: 1.2}
+  temperature:
+    m_OverrideState: 1
+    m_Value: -0.17
+  tint:
+    m_OverrideState: 1
+    m_Value: -0.21
+  colorFilter:
+    m_OverrideState: 1
+    m_Value: {r: 0.7169812, g: 0.503916, b: 0.46333218, a: 1}
+  dark:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &-6080081795853854448
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22eac7613ff44f79831f6a955dd6ca82, type: 3}
+  m_Name: FogVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  density:
+    m_OverrideState: 1
+    m_Value: 0.0693
+  offset:
+    m_OverrideState: 1
+    m_Value: 30.1
+  fade:
+    m_OverrideState: 1
+    m_Value: 0.9
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0.33962262, g: 0.31902555, b: 0.3155927, a: 1}
+--- !u!114 &-5357979103935844117
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5904fbe4fa554eb8a56b4d5adbfc5e9a, type: 3}
+  m_Name: SharpnessVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  amount:
+    m_OverrideState: 1
+    m_Value: 0.77
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -5357979103935844117}
+  - {fileID: -8742815852631331184}
+  - {fileID: -6080081795853854448}
+  - {fileID: 7528441308086784188}
+--- !u!114 &7528441308086784188
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c7f7de05174ede845629ce6a901794, type: 3}
+  m_Name: CellShadingVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  shades:
+    m_OverrideState: 1
+    m_Value: 12
+  strength:
+    m_OverrideState: 1
+    m_Value: 0.7

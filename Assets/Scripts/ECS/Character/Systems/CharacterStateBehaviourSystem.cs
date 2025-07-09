@@ -15,15 +15,19 @@ namespace Scorewarrior.ECS
     public sealed class CharacterStateBehaviourSystem : IUpdateSystem
     {
         readonly Filter m_charactersFilter;
+        readonly GameController m_gameController;
 
         [Preserve]public CharacterStateBehaviourSystem(Pipeline pipeline)
         {
             m_charactersFilter = pipeline.Query.With<CharacterMarker>().Build();
+            DIContainer.Resolve(out m_gameController);
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
         public void OnUpdate(Pipeline pipeline)
         {
+            if (m_gameController.GameState != EGameState.Started) return;
+            
             foreach (var character in m_charactersFilter)
             {
                 var marker = character.GetComponent<CharacterMarker>();
