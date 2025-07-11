@@ -1,4 +1,4 @@
-# ECS powered prototype of an autobattle between teams. 
+## ECS powered prototype of an autobattle between two teams. 
 
 <img width="1025" height="565" alt="image" src="https://github.com/user-attachments/assets/873090d1-46fe-4dfd-8333-f1bb0f925259" />
 
