@@ -57,7 +57,8 @@ namespace Scorewarrior.ECS
                 
                 available_modifiers.RemoveAt(modifier_index);
             }
-
+            
+            pipeline.ForceUpdateFilters(modifiers);
         }
     };
 }

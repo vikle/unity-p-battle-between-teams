@@ -30,6 +30,8 @@ namespace Scorewarrior.ECS
             var prefab = entity.GetComponent<ObjectRef<ProjectilePrefab>>().Target;
             
             stats.AddComponent<Speed>().value = prefab.moveSpeed;
+            
+            pipeline.ForceUpdateFilters(stats);
         }
     };
 }

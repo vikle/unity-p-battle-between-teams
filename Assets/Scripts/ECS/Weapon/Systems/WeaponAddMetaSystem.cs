@@ -29,6 +29,8 @@ namespace Scorewarrior.ECS
             
             marker.meta.AddComponent<ClipSize>()
                   .value = marker.stats.GetComponent<ClipSize>().value;
+            
+            pipeline.ForceUpdateFilters(marker.meta);
         }
     };
 }

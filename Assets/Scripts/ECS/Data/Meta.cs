@@ -51,18 +51,33 @@ namespace Scorewarrior.ECS
         public bool die;
     };
     
-    public sealed class ProjectileTarget : IComponent
+    public sealed class ProjectileTarget : IResettableComponent
     {
         public bool hit;
         public Entity entity;
         public Vector3 position;
         public float distance;
+        
+        void IResettableComponent.OnReset()
+        {
+            hit = false;
+            entity = null;
+            position = Vector3.zero;
+            distance = 0f;
+        }
     };
     
-    public sealed class ProjectileMoveMeta : IComponent
+    public sealed class ProjectileMoveMeta : IResettableComponent
     {
         public Vector3 origin;
         public Vector3 direction;
         public float rayPosition;
+        
+        void IResettableComponent.OnReset()
+        {
+            origin = Vector3.zero;
+            direction = Vector3.zero;
+            rayPosition = 0f;
+        }
     };
 }

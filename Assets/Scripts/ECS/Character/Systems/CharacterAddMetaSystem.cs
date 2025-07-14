@@ -35,6 +35,8 @@ namespace Scorewarrior.ECS
             meta.AddComponent<Armor>().value = stats.GetComponent<Armor>().value;
             meta.AddComponent<Health>().value = stats.GetComponent<Health>().value;
             meta.AddComponent<AimTime>().value = 0f;
+            
+            pipeline.ForceUpdateFilters(meta);
         }
     };
 }

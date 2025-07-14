@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.Scripting;
 using UniversalEntities;
 
@@ -27,17 +26,10 @@ namespace Scorewarrior.ECS
             var meta = marker.meta;
 
             meta.AddComponent<Damage>().value = 0f;
-
-            var target = meta.AddComponent<ProjectileTarget>();
-            target.hit = false;
-            target.entity = null;
-            target.position = Vector3.zero;
-            target.distance = 0f;
+            meta.AddComponent<ProjectileTarget>();
+            meta.AddComponent<ProjectileMoveMeta>();
             
-            var move_meta = meta.AddComponent<ProjectileMoveMeta>();
-            move_meta.origin = Vector3.zero;
-            move_meta.direction = Vector3.zero;
-            move_meta.rayPosition = 0f;
+            pipeline.ForceUpdateFilters(meta);
         }
     };
 }

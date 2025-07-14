@@ -44,6 +44,8 @@ namespace Scorewarrior.ECS
             
             stats.AddComponent<AimTime>()
                  .value = (descriptor.AimTime * modifiers.GetComponent<AimTime>().value);
+            
+            pipeline.ForceUpdateFilters(stats);
         }
     };
 }

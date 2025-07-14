@@ -4,7 +4,6 @@ using UniversalEntities;
 namespace Scorewarrior.ECS
 {
     using Test.Descriptors;
-    using Test.Views;
     
     [DisallowMultipleComponent]
     [RequireComponent(typeof(WeaponPrefab))]

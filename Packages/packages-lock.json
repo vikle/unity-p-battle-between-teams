@@ -94,7 +94,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4077ca569cf1db6d62ba3a49416aa7b8ff7de20e"
+      "hash": "ce49f60d7a65b15619b93bca8f1945f0ac774d7b"
     },
     "com.vikle.urp-image-effects-adapter": {
       "version": "https://github.com/vikle/URPImageEffectsAdapter.git",

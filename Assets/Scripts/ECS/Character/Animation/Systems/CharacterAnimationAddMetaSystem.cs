@@ -37,6 +37,8 @@ namespace Scorewarrior.ECS
             AnimHash.Get(descriptor._dieName, out hash.die, out validation.die);
             
             meta.AddComponent<ReloadTime>().value = descriptor._reloadAnimationLength;
+            
+            pipeline.ForceUpdateFilters(meta);
         }
     };
 }
